@@ -1,8 +1,8 @@
-#include "gameobject.h"
+#include <gameobject.h>
 
-#include "component.h"
-#include "gamescene.h"
-#include "transform.h"
+#include <component.h>
+#include <gamescene.h>
+#include <transform.h>
 
 GameObject::GameObject() : QObject() {}
 GameObject::~GameObject() {

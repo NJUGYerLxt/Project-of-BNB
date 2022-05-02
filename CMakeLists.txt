@@ -32,6 +32,9 @@ set(PROJECT_SOURCES
         hitable.h hitable.cpp
         shooter.h shooter.cpp
         summondummy.h summondummy.cpp
+        physics.h physics.cpp
+        gamecode/gamemap.h gamecode/gamemap.cpp
+        framework/usercontroller.h framework/usercontroller.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
