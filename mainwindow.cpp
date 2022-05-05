@@ -36,6 +36,15 @@ void loadScene(GameScene *gameScene) {
     summonDummyBtn->addComponent(new Transform);
     summonDummyBtn->addComponent(new SummonDummy);
     gameScene->attachGameObject(summonDummyBtn);
+
+    auto floor = new GameObject();
+    auto pic = new ImageTransform();
+    pic->setImage(":/floor/gamecode/map/floor.png");
+    pic->setAlignment(Qt::AlignCenter);
+    pic->setPos(QPointF(100, 100));
+    pic->setImageRect(QRectF(-50, -50, 100, 100));
+    floor->addComponent(pic);
+    gameScene->attachGameObject(floor);
 }
 
 MainWindow::MainWindow(QWidget *parent)

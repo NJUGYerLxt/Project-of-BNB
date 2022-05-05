@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/floor">
+        <file>gamecode/map/floor.png</file>
+    </qresource>
+</RCC>

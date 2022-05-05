@@ -16,6 +16,7 @@ class ImageTransform : public Transform {
 
   void setOffset(const QPointF &offset);
   void setAlignment(Qt::Alignment alignment);
+  void setImageRect(QRectF ImageRect){imageRect = ImageRect;}
 
  protected:
   QRectF boundingRect() const override;

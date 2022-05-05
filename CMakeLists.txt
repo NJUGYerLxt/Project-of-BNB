@@ -35,6 +35,7 @@ set(PROJECT_SOURCES
         physics.h physics.cpp
         gamecode/gamemap.h gamecode/gamemap.cpp
         framework/usercontroller.h framework/usercontroller.cpp
+        image.qrc
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

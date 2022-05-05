@@ -18,9 +18,9 @@ void Shooter::onAttach() {
 void Shooter::onUpdate(float deltaTime) {
   cooldown -= deltaTime;
   if (cooldown > 0) return;
-  cooldown = interval;
+  cooldown = interval; //重置冷却时间
 
-  QPointF velocity;
+  QPointF velocity; //QPointF为与位置有关的pair
   if (this->getKey(Qt::Key_W))
     velocity = QPointF(0, -100);
   else if (this->getKey(Qt::Key_A))
