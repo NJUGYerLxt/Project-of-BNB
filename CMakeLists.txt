@@ -33,8 +33,12 @@ set(PROJECT_SOURCES
         shooter.h shooter.cpp
         summondummy.h summondummy.cpp
         physics.h physics.cpp
+        usercontroller.h usercontroller.cpp
+
         gamecode/gamemap.h gamecode/gamemap.cpp
-        framework/usercontroller.h framework/usercontroller.cpp
+        gamecode/playercontroller.h gamecode/playercontroller.cpp
+        gamecode/AIcontroller.h gamecode/AIcontroller.cpp
+        gamecode/setbomb.h gamecode/setbomb.cpp
         image.qrc
 )
 

@@ -16,19 +16,19 @@ GameScene::GameScene() {
 
 GameScene::~GameScene() {
   updateTimer->stop();
-  for (auto gameObject : gameObjects) {
+  for (auto gameObject : gameObjects) { //删除 GameScene 时移除上面所有的 GameObject并解除父子关系
     gameObject->onDetach();
     gameObject->setParentGameScene(nullptr);
   }
 }
 
 void GameScene::attachGameObject(GameObject *gameObject) {
-  gameObjectsToAttach.emplace_back(gameObject);
+  gameObjectsToAttach.emplace_back(gameObject); //相当于更高效的 push_back
 }
 void GameScene::detachGameObject(GameObject *gameObject) {
   gameObjectsToDetach.emplace_back(gameObject);
 }
-GameObject *GameScene::getGameObject(const char *name) {
+GameObject *GameScene::getGameObject(const char *name) { //在 gameObjects 列表中搜索指定的gameObject
   for (auto gameObject : gameObjects) {
     if (gameObject->objectName() == name) return gameObject;
   }

@@ -10,13 +10,13 @@ class ImageTransform : public Transform {
   ImageTransform(const ImageTransform &) = delete;
   ImageTransform &operator=(const ImageTransform &) = delete;
 
-  const QImage &getImage();
+  const QImage &getImage();  //返回指向的图片
   bool setImage(const char *path);
-  bool setImage(const QString &path);
+  bool setImage(const QString &path); //放置图片
 
   void setOffset(const QPointF &offset);
   void setAlignment(Qt::Alignment alignment);
-  void setImageRect(QRectF ImageRect){imageRect = ImageRect;}
+  void setImageRect(QRectF ImageRect);
 
  protected:
   QRectF boundingRect() const override;

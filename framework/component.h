@@ -11,7 +11,7 @@ class Component : public QObject {
 
  public:
   Component();
-  Component(const Component &) = delete;
+  Component(const Component &) = delete;  //删除一个组件
   Component &operator=(const Component &) = delete;
 
   // Lifecycle functions

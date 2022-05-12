@@ -1,7 +1,7 @@
 #ifndef SUMMONDUMMY_H_
 #define SUMMONDUMMY_H_
 
-#include <component.h>
+#include "component.h"
 
 class SummonDummy : public Component {
  public:

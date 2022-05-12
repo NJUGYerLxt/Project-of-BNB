@@ -4,8 +4,8 @@
 #include <gamescene.h>
 #include <transform.h>
 
-GameObject::GameObject() : QObject() {}
-GameObject::~GameObject() {
+GameObject::GameObject() : QObject() {}   //建立该类对象
+GameObject::~GameObject() {  //移除该类对象
   if (this->gameScene != nullptr) {
     detachGameObject(this);
   }

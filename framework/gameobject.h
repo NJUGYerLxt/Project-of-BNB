@@ -20,7 +20,7 @@ class GameObject final : public QObject {
  public:
   template <typename T>
   T *getComponent() {
-    for (auto component : components) {
+    for (auto component : components) { //在 components 列表中搜索并返回指向 T 类型 component 的指针
       auto ptr = dynamic_cast<T *>(component);
       if (ptr != nullptr) return ptr;
     }
@@ -68,7 +68,7 @@ class GameObject final : public QObject {
 
  private:
   GameScene *gameScene = nullptr;
-  QList<Component *> components;
+  QList<Component *> components; //gameObject的组件列表
 };
 
 #endif  // FRAMEWORK_GAMEOBJECT_H_

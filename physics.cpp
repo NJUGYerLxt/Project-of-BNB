@@ -1,5 +1,5 @@
 #include "physics.h"
-#include<QGraphicsEllipseItem>
+#include <QGraphicsEllipseItem>
 
 //void loadScene(GameScene *scene)
 //{

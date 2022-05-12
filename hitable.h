@@ -1,7 +1,7 @@
 #ifndef HITABLE_H_
 #define HITABLE_H_
 
-#include <component.h>
+#include "component.h"
 
 class Hitable : public Component {
  public:

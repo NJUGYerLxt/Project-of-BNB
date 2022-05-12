@@ -1,9 +1,6 @@
 #include "usercontroller.h"
 
-UserController::UserController()
-{
-
-}
+UserController::UserController() {}
 
 void UserController::onAttach()
 {

@@ -1,7 +1,7 @@
 #ifndef MAINWINDOW_H_
 #define MAINWINDOW_H_
 
-#include "gamescene.h"
+#include <gamescene.h>
 
 #include <QGraphicsView>
 #include <QMainWindow>

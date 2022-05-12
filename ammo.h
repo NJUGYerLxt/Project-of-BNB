@@ -1,9 +1,9 @@
 #ifndef AMMO_H_
 #define AMMO_H_
 
-#include <component.h>
-#include <gameobject.h>
-#include <transform.h>
+#include "component.h"
+#include "gameobject.h"
+#include "transform.h"
 
 class Ammo : public Component {
  public:

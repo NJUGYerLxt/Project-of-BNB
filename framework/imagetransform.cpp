@@ -31,6 +31,8 @@ void ImageTransform::setAlignment(Qt::Alignment alignment) {
   updateImageRect();
 }
 
+void ImageTransform::setImageRect(QRectF ImageRect) { imageRect = ImageRect; }
+
 void ImageTransform::updateImageRect() {
   this->prepareGeometryChange();
   imageRect = this->image.rect();

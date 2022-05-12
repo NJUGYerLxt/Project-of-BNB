@@ -1,9 +1,9 @@
 #ifndef TRANSFORMBUILDER_H
 #define TRANSFORMBUILDER_H
 
-#include <gameobject.h>
-#include <imagetransform.h>
-#include <transform.h>
+#include "gameobject.h"
+#include "imagetransform.h"
+#include "transform.h"
 
 #include <type_traits>
 
