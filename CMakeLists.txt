@@ -28,8 +28,6 @@ set(PROJECT_SOURCES
         framework/transformbuilder.h framework/transformbuilder.cpp
 
         ammo.h ammo.cpp
-        health.h health.cpp
-        hitable.h hitable.cpp
         shooter.h shooter.cpp
         summondummy.h summondummy.cpp
         physics.h physics.cpp
@@ -37,8 +35,10 @@ set(PROJECT_SOURCES
 
         gamecode/gamemap.h gamecode/gamemap.cpp
         gamecode/playercontroller.h gamecode/playercontroller.cpp
+        gamecode/health.h gamecode/health.cpp
+        gamecode/hitable.h gamecode/hitable.cpp
         gamecode/AIcontroller.h gamecode/AIcontroller.cpp
-        gamecode/setbomb.h gamecode/setbomb.cpp
+        gamecode/bomb.h gamecode/bomb.cpp
         image.qrc
 )
 

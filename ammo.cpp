@@ -3,7 +3,7 @@
 #include <QBrush>
 #include <QGraphicsEllipseItem>
 
-#include "hitable.h"
+#include "gamecode/hitable.h"
 
 Ammo::Ammo(QPointF velocity) : Component(), velocity(velocity) {}
 

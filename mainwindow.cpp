@@ -12,7 +12,7 @@
 #include "./ui_mainwindow.h"
 
 void loadScene(GameScene *gameScene) {
-    auto obj = new GameObject();
+    /*auto obj = new GameObject();
     auto transform = new Transform();
     auto circle = new QGraphicsEllipseItem (transform);  //画圆形图案
     circle->setRect(-5, -5, 100, 100);
@@ -38,7 +38,7 @@ void loadScene(GameScene *gameScene) {
     summonDummyBtn->addComponent(new SummonDummy);
     gameScene->attachGameObject(summonDummyBtn);
 
-    /*auto floor = new GameObject();
+    auto floor = new GameObject();
     auto pic = new ImageTransform();
     pic->setImage(":/floor/gamecode/map/floor.png");
     pic->setAlignment(Qt::AlignCenter);
@@ -56,7 +56,6 @@ void loadScene(GameScene *gameScene) {
     player1->addComponent(transform1);
     player1->addComponent(new PlayerController(1));
     player1->addComponent(physics1);
-    player1->addComponent(new SetBomb);
     gameScene->attachGameObject(player1);
 
     auto player2 = new GameObject();
@@ -68,7 +67,6 @@ void loadScene(GameScene *gameScene) {
     player2->addComponent(transform2);
     player2->addComponent(new PlayerController(2));
     player2->addComponent(physics2);
-    player2->addComponent(new SetBomb);
     gameScene->attachGameObject(player2);
 }
 

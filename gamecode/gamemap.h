@@ -7,11 +7,16 @@
 #include "transform.h"
 #include "physics.h"
 
-class Gamemap: public Component {
+class Gamemap: public Component
+{
 public:
     Gamemap();
+
+    void onAttach() override;
+    void onUpdate(float deltatime) override;
+
 protected:
-    GameObject* pic[15][20];
+    GameObject *pic[15][20];
 };
 
 #endif // GAMEMAP_H

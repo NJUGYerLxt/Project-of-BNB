@@ -6,7 +6,7 @@
 #include "gamescene.h"
 #include "transform.h"
 #include "physics.h"
-#include "setbomb.h"
+#include "bomb.h"
 
 class AIController: public Component
 {

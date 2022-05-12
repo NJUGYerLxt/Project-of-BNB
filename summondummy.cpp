@@ -6,7 +6,7 @@
 #include <QGraphicsRectItem>
 #include <QGraphicsSimpleTextItem>
 
-#include "health.h"
+#include "gamecode/health.h"
 
 SummonDummy::SummonDummy() {}
 
