@@ -1,13 +1,14 @@
 #include "mainwindow.h"
 #include <QGraphicsEllipseItem>
-#include <gameobject.h>
-#include <imagetransform.h>
-#include <shooter.h>
-#include <summondummy.h>
-#include <transformbuilder.h>
-#include <physics.h>
-#include <usercontroller.h>
-#include <gamecode/playercontroller.h>
+#include "gameobject.h"
+#include "imagetransform.h"
+#include "shooter.h"
+#include "summondummy.h"
+#include "transformbuilder.h"
+#include "physics.h"
+#include "usercontroller.h"
+#include "gamecode/playercontroller.h"
+#include "gamecode/gamemap.h"
 
 #include "./ui_mainwindow.h"
 
@@ -40,13 +41,14 @@ void loadScene(GameScene *gameScene) {
 
     auto floor = new GameObject();
     auto pic = new ImageTransform();
-    pic->setImage(":/floor/gamecode/map/floor.png");
+    pic->setImage(":/images/gamecode/map/floor.png");
     pic->setAlignment(Qt::AlignCenter);
     pic->setPos(QPointF(100, 100));
-    pic->setImageRect(QRectF(-50, -50, 100, 100));
+    pic->setImageRect(QRectF(-50, -50, 50, 50));
     floor->addComponent(pic);
     gameScene->attachGameObject(floor);*/
 
+    new Gamemap(gameScene);
     auto player1 = new GameObject();
     auto physics1 = new Physics();
     auto transform1 = new Transform();

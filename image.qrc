@@ -1,5 +1,7 @@
 <RCC>
-    <qresource prefix="/floor">
+    <qresource prefix="/images">
         <file>gamecode/map/floor.png</file>
+        <file>gamecode/map/hardwall.png</file>
+        <file>gamecode/map/softwall.png</file>
     </qresource>
 </RCC>

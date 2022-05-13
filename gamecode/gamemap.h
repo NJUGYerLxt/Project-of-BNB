@@ -6,17 +6,15 @@
 #include "gamescene.h"
 #include "transform.h"
 #include "physics.h"
+#include "hitable.h"
 
-class Gamemap: public Component
+class Gamemap
 {
 public:
-    Gamemap();
+    Gamemap(GameScene *gameScene);
 
-    void onAttach() override;
-    void onUpdate(float deltatime) override;
-
-protected:
-    GameObject *pic[15][20];
+private:
+    GameObject *block[15][20];
 };
 
 #endif // GAMEMAP_H

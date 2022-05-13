@@ -23,7 +23,7 @@ void Bomb::onAttach()
     //assert(bomb != nullptr);
     assert(transform != nullptr);
     auto circle = new QGraphicsEllipseItem(this->transform);
-    circle->setRect(QRectF(-10, -10, 20, 20));  //（位置，大小）
+    circle->setRect(QRectF(10, 10, 20, 20));  //（位置，大小）
     circle->setBrush(QBrush(Qt::black));
 }
 
