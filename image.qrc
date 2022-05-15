@@ -3,5 +3,16 @@
         <file>gamecode/map/floor.png</file>
         <file>gamecode/map/hardwall.png</file>
         <file>gamecode/map/softwall.png</file>
+        <file>gamecode/player/downward.png</file>
+        <file>gamecode/player/leftward.png</file>
+        <file>gamecode/player/rightward.png</file>
+        <file>gamecode/player/upward.png</file>
+        <file>gamecode/map/bomb.png</file>
+        <file>gamecode/map/bombing.png</file>
+        <file>gamecode/map/horizontallight.png</file>
+        <file>gamecode/map/verticallight.png</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>gamecode/map/bomb.png</file>
     </qresource>
 </RCC>

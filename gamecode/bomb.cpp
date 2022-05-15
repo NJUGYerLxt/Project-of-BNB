@@ -7,24 +7,22 @@ Bomb::Bomb()
 
 void Bomb::setMaster(PlayerController *master) {this->master = master;}
 
-PlayerController* Bomb::getMaster() {return master;}
-
-void Bomb::explode(float deltatime)
-{
-    cooldown -= deltatime;
-    if (cooldown <= 0)
-        destory(this->gameObject);
-}
+PlayerController *Bomb::getMaster() {return master;}
 
 void Bomb::onAttach()
 {
     //bomb = this->gameObject;
-    transform = this->gameObject->getComponent<Transform>();
+    imagetransform = this->gameObject->getComponent<ImageTransform>();
     //assert(bomb != nullptr);
-    assert(transform != nullptr);
-    auto circle = new QGraphicsEllipseItem(this->transform);
-    circle->setRect(QRectF(10, 10, 20, 20));  //（位置，大小）
-    circle->setBrush(QBrush(Qt::black));
+    assert(imagetransform != nullptr);
+}
+
+void Bomb::explode(float deltatime)
+{
+    imagetransform->setImage(":/images/gamecode/map/bombing.png");
+    cooldown -= deltatime;
+    if (cooldown <= 0)
+        destory(this->gameObject);
 }
 
 void Bomb::onUpdate(float deltatime)
@@ -39,4 +37,9 @@ void Bomb::onUpdate(float deltatime)
         }
         explode(deltatime);
     }
+}
+
+void Bomb::Modifyrange()
+{
+    range++;
 }

@@ -39,6 +39,7 @@ set(PROJECT_SOURCES
         gamecode/hitable.h gamecode/hitable.cpp
         gamecode/AIcontroller.h gamecode/AIcontroller.cpp
         gamecode/bomb.h gamecode/bomb.cpp
+        gamecode/wall.h gamecode/wall.cpp
         image.qrc
 )
 

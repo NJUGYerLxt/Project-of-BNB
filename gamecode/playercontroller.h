@@ -6,6 +6,7 @@
 #include "gamescene.h"
 #include "transform.h"
 #include "physics.h"
+#include "wall.h"
 
 class PlayerController: public Component
 {
@@ -18,11 +19,14 @@ public:
     void onUpdate(float deltaTime) override;
 
 protected:
-    Transform *transform;
+    Transform *transform = nullptr;
+    ImageTransform *imagetransform = nullptr;
+    QGraphicsItem *collider = nullptr;
+    Physics *physics;
+
 
 private:
     int type;
-    Physics *physics;
     int MostBombnum = 1;
     int curBombnum = 0;
 };

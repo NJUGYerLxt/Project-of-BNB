@@ -51,11 +51,11 @@ void loadScene(GameScene *gameScene) {
     new Gamemap(gameScene);
     auto player1 = new GameObject();
     auto physics1 = new Physics();
-    auto transform1 = new Transform();
-    auto image1 = new QGraphicsEllipseItem (transform1);
-    image1->setRect(-5, -5, 100, 100);
-    transform1->setPos(100, 100);
-    player1->addComponent(transform1);
+    ImageTransformBuilder()
+        .setPos(QPointF(60, 55))
+        .setImage(":/images/gamecode/player/downward.png")
+        .setAlignment(Qt::AlignCenter)
+        .addToGameObject(player1);
     player1->addComponent(new PlayerController(1));
     player1->addComponent(physics1);
     gameScene->attachGameObject(player1);
@@ -69,7 +69,7 @@ void loadScene(GameScene *gameScene) {
     player2->addComponent(transform2);
     player2->addComponent(new PlayerController(2));
     player2->addComponent(physics2);
-    gameScene->attachGameObject(player2);
+    //gameScene->attachGameObject(player2);
 }
 
 MainWindow::MainWindow(QWidget *parent)

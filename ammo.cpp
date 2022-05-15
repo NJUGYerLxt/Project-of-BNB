@@ -13,7 +13,7 @@ void Ammo::onAttach() {
   auto circle = new QGraphicsEllipseItem(this->transform);
   circle->setRect(QRectF(-10, -10, 20, 20));  //（位置，大小）
   circle->setBrush(QBrush(Qt::black));
-  this->collider = circle;  //绑定，后检测与circle的碰撞
+  this->collider = circle;  //绑定，后检测与 circle 的碰撞
 }
 
 void Ammo::onUpdate(float deltaTime) {
@@ -26,7 +26,7 @@ void Ammo::onUpdate(float deltaTime) {
   for (auto item : this->collider->collidingItems()) {
     while (item->parentItem() != nullptr)  //item相当于碰撞时相交的部分
         item = item->parentItem();  //取出碰撞对象
-    auto transform = dynamic_cast<Transform *>(item);
+    auto transform = dynamic_cast<Transform *>(item);  //强制转换
     if (transform == nullptr) continue;
     auto gameObject = transform->getParentGameObject();
     auto hitable = gameObject->getComponent<Hitable>(); //getComponent<T>表示找到属于T类的组件

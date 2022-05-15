@@ -15,7 +15,7 @@ public:
     Bomb();
     void setMaster(PlayerController *master);
     PlayerController *getMaster();
-
+    void Modifyrange();
     void onAttach() override;
     void onUpdate(float deltatime) override;
 
@@ -28,9 +28,10 @@ protected:
 
 private:
     //GameObject *bomb = nullptr;
-    Transform *transform = nullptr;
+    ImageTransform *imagetransform = nullptr;
     PlayerController *master;
     bool ChangeCondition = false;
+    int range = 1;
 };
 
 #endif // BOMB_H

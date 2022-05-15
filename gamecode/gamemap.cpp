@@ -14,9 +14,9 @@ Gamemap::Gamemap(GameScene *gameScene)
         {
             if (i == 0 || j == 0)
                 content[i][j] = 2;
-            else if (i == 1 && (j == 1 || j == 2 || j == 3 || j == 4))
+            else if (i == 1 && (j == 1 || j == 2 || j == 3))
                 content[i][j] = 0;
-            else if (i == 2 && (j == 1 || j == 2 || j == 3))
+            else if ((i == 2 || i == 3) && j == 1)
                 content[i][j] = 0;
             else
             {
@@ -62,6 +62,8 @@ Gamemap::Gamemap(GameScene *gameScene)
                     .setAlignment(Qt::AlignCenter)
                     .addToGameObject(block[i][j]);
                 block[i][j]->addComponent(hitable);
+                block[i][j]->addComponent(new Health(1));
+                block[i][j]->addComponent(new Wall());
                 break;
             case 2:
                 ImageTransformBuilder()
@@ -69,9 +71,21 @@ Gamemap::Gamemap(GameScene *gameScene)
                     .setImage(":/images/gamecode/map/hardwall.png")
                     .setAlignment(Qt::AlignCenter)
                     .addToGameObject(block[i][j]);
+                block[i][j]->addComponent(new Wall());
                 break;
             }
+            location[i][j] = QPointF(40*j+20, 40*i+20);
             gameScene->attachGameObject(block[i][j]);
         }
     }
+}
+
+GameObject* Gamemap::getblock(int i, int j)
+{
+    return block[i][j];
+}
+
+QPointF Gamemap::getblocklocation(int i, int j)
+{
+    return location[i][j];
 }
