@@ -45,7 +45,6 @@ Gamemap::Gamemap(GameScene *gameScene)
         for (j = 0; j < 20; j++)
         {
             block[i][j] = new GameObject();
-            auto hitable = new Hitable();
             switch (content[i][j])
             {
             case 0:
@@ -61,8 +60,7 @@ Gamemap::Gamemap(GameScene *gameScene)
                     .setImage(":/images/gamecode/map/softwall.png")
                     .setAlignment(Qt::AlignCenter)
                     .addToGameObject(block[i][j]);
-                block[i][j]->addComponent(hitable);
-                block[i][j]->addComponent(new Health(1));
+                block[i][j]->addComponent(new Hitable);
                 block[i][j]->addComponent(new Wall());
                 break;
             case 2:
@@ -71,6 +69,7 @@ Gamemap::Gamemap(GameScene *gameScene)
                     .setImage(":/images/gamecode/map/hardwall.png")
                     .setAlignment(Qt::AlignCenter)
                     .addToGameObject(block[i][j]);
+                //block[i][j]->addComponent(new Health(-1));
                 block[i][j]->addComponent(new Wall());
                 break;
             }

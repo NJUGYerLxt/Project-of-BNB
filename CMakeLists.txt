@@ -40,6 +40,7 @@ set(PROJECT_SOURCES
         gamecode/AIcontroller.h gamecode/AIcontroller.cpp
         gamecode/bomb.h gamecode/bomb.cpp
         gamecode/wall.h gamecode/wall.cpp
+        gamecode/light.h gamecode/light.cpp
         image.qrc
 )
 

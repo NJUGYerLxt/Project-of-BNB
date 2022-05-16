@@ -58,6 +58,7 @@ void loadScene(GameScene *gameScene) {
         .addToGameObject(player1);
     player1->addComponent(new PlayerController(1));
     player1->addComponent(physics1);
+    player1->addComponent(new Health(1));
     gameScene->attachGameObject(player1);
 
     auto player2 = new GameObject();

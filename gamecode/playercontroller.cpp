@@ -27,14 +27,14 @@ void PlayerController::onAttach()
 
 void PlayerController::onUpdate(float deltatime)
 {
+    if (this->gameObject == nullptr || dead)  return;
     float vx = 0, vy = 0;
-
     switch (type)
     {
     case 1:
         if (getKey(Qt::Key_D))
         {
-            vx += 180;
+            vx += velocity;
             imagetransform->setImage(":/images/gamecode/player/rightward.png");
             for (auto item : this->collider->collidingItems())
             {
@@ -44,7 +44,7 @@ void PlayerController::onUpdate(float deltatime)
                 if (transform != nullptr && transform->pos().x() - imagetransform->pos().x() < qreal(40)
                     && transform->pos().x() > imagetransform->pos().x()
                     && transform->pos().y() - imagetransform->pos().y() < qreal(40)
-                    && transform->pos().y() - imagetransform->pos().y() > qreal(-10))
+                    && transform->pos().y() - imagetransform->pos().y() > qreal(-20))
                 {
                     auto gameObject = transform->getParentGameObject();
                     auto wall = gameObject->getComponent<Wall>();
@@ -55,7 +55,7 @@ void PlayerController::onUpdate(float deltatime)
         }
         else if (getKey(Qt::Key_A))
         {
-            vx -= 180;
+            vx -= velocity;
             imagetransform->setImage(":/images/gamecode/player/leftward.png");
             for (auto item : this->collider->collidingItems())
             {
@@ -65,7 +65,7 @@ void PlayerController::onUpdate(float deltatime)
                 if (transform != nullptr && imagetransform->pos().x() - transform->pos().x() < qreal(40)
                     && transform->pos().x() < imagetransform->pos().x()
                     && transform->pos().y() - imagetransform->pos().y() < qreal(40)
-                    && transform->pos().y() - imagetransform->pos().y() > qreal(-10))
+                    && transform->pos().y() - imagetransform->pos().y() > qreal(-20))
                 {
                     auto gameObject = transform->getParentGameObject();
                     auto wall = gameObject->getComponent<Wall>();
@@ -76,7 +76,7 @@ void PlayerController::onUpdate(float deltatime)
         }
         else if (getKey(Qt::Key_W))
         {
-            vy -= 180;
+            vy -= velocity;
             imagetransform->setImage(":/images/gamecode/player/upward.png");
             for (auto item : this->collider->collidingItems())
             {
@@ -84,7 +84,7 @@ void PlayerController::onUpdate(float deltatime)
                     item = item->parentItem();
                 auto transform = dynamic_cast<Transform *>(item);
                 if (transform != nullptr && abs(transform->pos().x() - imagetransform->pos().x()) < qreal(30)
-                    && transform->pos().y() - imagetransform->pos().y() > qreal(-20)
+                    && transform->pos().y() - imagetransform->pos().y() > qreal(-30)
                     && transform->pos().y() - imagetransform->pos().y() < 0)
                 {
                     auto gameObject = transform->getParentGameObject();
@@ -96,7 +96,7 @@ void PlayerController::onUpdate(float deltatime)
         }
         else if (getKey(Qt::Key_S))
         {
-            vy += 180;
+            vy += velocity;
             imagetransform->setImage(":/images/gamecode/player/downward.png");
             for (auto item : this->collider->collidingItems())
             {
@@ -142,7 +142,7 @@ void PlayerController::onUpdate(float deltatime)
                 .addToGameObject(bomb);
             classification->setMaster(this);
             bomb->addComponent(classification);
-            bomb->addComponent(new ImageTransform());
+            //bomb->addComponent(new ImageTransform());
             attachGameObject(bomb);
             curBombnum++;
         }
@@ -168,3 +168,7 @@ void PlayerController::onUpdate(float deltatime)
     }
     physics->setVelocity(vx, vy);
 }
+
+void PlayerController::ModifyVelocity() {velocity += 80;}
+
+void PlayerController::Death() {dead = true;}

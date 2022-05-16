@@ -18,6 +18,7 @@ public:
     void Modifyrange();
     void onAttach() override;
     void onUpdate(float deltatime) override;
+    bool getDestoried();
 
 protected:
     const float bombtime = 2.5;
@@ -25,13 +26,16 @@ protected:
     float cooldown = cooltime;
     float countdown = bombtime;
     void explode(float deltatime);
+    QGraphicsItem *collider;
+    ImageTransform *imagetransform = nullptr;
+    ImageTransform *detector = nullptr;
+    PlayerController *master;
+    int range = 1;
 
 private:
-    //GameObject *bomb = nullptr;
-    ImageTransform *imagetransform = nullptr;
-    PlayerController *master;
     bool ChangeCondition = false;
-    int range = 1;
+    bool GenerateLight = false;
+    bool Destoried = false;
 };
 
 #endif // BOMB_H
