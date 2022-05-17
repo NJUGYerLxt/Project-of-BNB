@@ -16,6 +16,7 @@ public:
     void onUpdate(float deltaTime) override;
 
     void setVelocity(float vx, float vy);
+    QPointF getVelocity();
 
 private:
     Transform *transform;

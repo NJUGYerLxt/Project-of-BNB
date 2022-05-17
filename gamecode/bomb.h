@@ -14,11 +14,14 @@ class Bomb: public Component
 public:
     Bomb();
     void setMaster(PlayerController *master);
+    void setRange(int range);
+    void setVelocity(QPointF velocity);
+    void setPushable();
     PlayerController *getMaster();
-    void Modifyrange();
     void onAttach() override;
     void onUpdate(float deltatime) override;
     bool getDestoried();
+    int getRange();
 
 protected:
     const float bombtime = 2.5;
@@ -28,14 +31,16 @@ protected:
     void explode(float deltatime);
     QGraphicsItem *collider;
     ImageTransform *imagetransform = nullptr;
-    ImageTransform *detector = nullptr;
+    //ImageTransform *detector = nullptr;
     PlayerController *master;
     int range = 1;
+    QPointF velocity = QPointF(0, 0);
 
 private:
     bool ChangeCondition = false;
     bool GenerateLight = false;
     bool Destoried = false;
+    bool pushable = false;
 };
 
 #endif // BOMB_H

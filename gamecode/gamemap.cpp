@@ -1,6 +1,7 @@
 #include "gamemap.h"
 #include "imagetransform.h"
 #include "transformbuilder.h"
+#include "tool.h"
 
 Gamemap::Gamemap(GameScene *gameScene)
 {
@@ -40,6 +41,7 @@ Gamemap::Gamemap(GameScene *gameScene)
         }
     }
     //挂图像
+    int generator;
     for (i = 0; i < 15; i++)
     {
         for (j = 0; j < 20; j++)
@@ -55,12 +57,24 @@ Gamemap::Gamemap(GameScene *gameScene)
                     .addToGameObject(block[i][j]);
                 break;
             case 1:
+                /*generator = rand() % 4 + 1;
+                if (generator <= 4)
+                {
+                    auto tool = new GameObject();
+                    ImageTransformBuilder()
+                        .setPos(QPointF(40*j+20, 40*i+20))
+                        .setAlignment(Qt::AlignCenter)
+                        .addToGameObject(tool);
+                    tool->addComponent(new Tool(generator));
+                    gameScene->attachGameObject(tool);
+                }*/
                 ImageTransformBuilder()
                     .setPos(QPointF(40*j+20, 40*i+20))
                     .setImage(":/images/gamecode/map/softwall.png")
                     .setAlignment(Qt::AlignCenter)
                     .addToGameObject(block[i][j]);
-                block[i][j]->addComponent(new Hitable);
+                //hitable->setGameScene(gameScene);
+                block[i][j]->addComponent(new Hitable());
                 block[i][j]->addComponent(new Wall());
                 break;
             case 2:

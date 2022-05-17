@@ -12,8 +12,7 @@
 //    scene->attachGameObject(obj);
 //}
 
-Physics::Physics()
-{}
+Physics::Physics() {}
 
 void Physics::onAttach()
 {
@@ -30,4 +29,9 @@ void Physics::setVelocity(float vx, float vy)
 {
     this->vx = vx;
     this->vy = vy;
+}
+
+QPointF Physics::getVelocity()
+{
+    return QPointF(vx, vy);
 }

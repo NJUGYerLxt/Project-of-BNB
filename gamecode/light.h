@@ -10,22 +10,26 @@
 #include "playercontroller.h"
 #include "bomb.h"
 
-class Light: public Bomb
+class Light: public Component
 {
 public:
-    Light(Bomb *parentBomb);
-    void setType(int type);
+    Light(Bomb *bomb);
     void onAttach() override;
+    void onFirstUpdate() override;
     void onUpdate(float deltatime) override;
-    bool gethit();
+    bool gethitwall();
+    void setCurRange(int range);
+    void setDirection(int direction);
 
 protected:
     ImageTransform *imagetransform = nullptr;
-    Bomb *parentBomb;
+    Bomb *parentBomb = nullptr;
     QGraphicsItem *collider = nullptr;
     int type;
-    bool attached = false;
-    bool hit = false;
+    int currange;
+    int direction;  //1上 2下 3左 4右
+    bool hitwall = false;
+    bool generate = false;
 };
 
 #endif // LIGHT_H

@@ -41,6 +41,8 @@ set(PROJECT_SOURCES
         gamecode/bomb.h gamecode/bomb.cpp
         gamecode/wall.h gamecode/wall.cpp
         gamecode/light.h gamecode/light.cpp
+        gamecode/tool.h gamecode/tool.cpp
+        gamecode/button.h gamecode/button.cpp
         image.qrc
 )
 

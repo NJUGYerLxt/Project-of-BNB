@@ -14,5 +14,14 @@
         <file>gamecode/player/death.png</file>
         <file>gamecode/map/transparentlight.png</file>
         <file>gamecode/map/transparentbomb.png</file>
+        <file>gamecode/map/BombTool.png</file>
+        <file>gamecode/map/PushTool.png</file>
+        <file>gamecode/map/RangeTool.png</file>
+        <file>gamecode/map/SpeedTool.png</file>
+        <file>gamecode/menu/button.png</file>
+        <file>gamecode/menu/Start.png</file>
+        <file>gamecode/menu/ButtonDescription.png</file>
+        <file>gamecode/menu/ButtonExit.png</file>
+        <file>gamecode/menu/ButtonStart.png</file>
     </qresource>
 </RCC>

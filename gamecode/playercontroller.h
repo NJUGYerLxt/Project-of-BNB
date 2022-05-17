@@ -15,6 +15,8 @@ public:
     void ModifyCurBombNum();
     void ModifyMostBombNum();
     void ModifyVelocity();
+    void ModifyBombRange();
+    void ModifyPushBomb();
 
     void onAttach() override;
     void onUpdate(float deltaTime) override;
@@ -28,10 +30,14 @@ protected:
 
 private:
     int type;
+    const int interval = 1;
+    int curinterval = interval;
     int MostBombnum = 1;
     int curBombnum = 0;
     int velocity = 160;
+    int BombRange = 1;
     bool dead = false;
+    bool pushbomb = false;
 };
 
 #endif // PLAYERCONTROLLER_H

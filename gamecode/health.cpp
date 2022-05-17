@@ -12,18 +12,11 @@ void Health::beHit() {
       {
           this->gameObject->getComponent<PlayerController>()->Death();
           this->gameObject->getComponent<Physics>()->setVelocity(0, 0);
+          this->gameObject->getComponent<ImageTransform>()->setImage(":/images/gamecode/player/death.png");
       }
       else
           destory(this->gameObject);
   }
-}
-
-void Health::onAttach()
-{
-    if (health > 0)
-        return;
-    if (this->gameObject->getComponent<PlayerController>() != nullptr)
-       this->gameObject->getComponent<ImageTransform>()->setImage(":/images/gamecode/player/death.png");
 }
 
 void Health::onUpdate(float deltatime)

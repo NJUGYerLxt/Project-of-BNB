@@ -1,10 +1,7 @@
 #include "playercontroller.h"
 #include "bomb.h"
 
-PlayerController::PlayerController(int type)
-{
-    this->type = type;
-}
+PlayerController::PlayerController(int type) {this->type = type;}
 
 void PlayerController::ModifyCurBombNum()
 {
@@ -13,6 +10,12 @@ void PlayerController::ModifyCurBombNum()
 }
 
 void PlayerController::ModifyMostBombNum() {MostBombnum++;}
+
+void PlayerController::ModifyBombRange() {BombRange++;}
+
+void PlayerController::ModifyVelocity() {velocity += 40;}
+
+void PlayerController::ModifyPushBomb() {pushbomb = true;}
 
 void PlayerController::onAttach()
 {
@@ -42,13 +45,18 @@ void PlayerController::onUpdate(float deltatime)
                     item = item->parentItem();
                 auto transform = dynamic_cast<Transform *>(item);
                 if (transform != nullptr && transform->pos().x() - imagetransform->pos().x() < qreal(40)
-                    && transform->pos().x() > imagetransform->pos().x()
+                    && transform->pos().x() - imagetransform->pos().x() > qreal(5)
                     && transform->pos().y() - imagetransform->pos().y() < qreal(40)
                     && transform->pos().y() - imagetransform->pos().y() > qreal(-20))
                 {
-                    auto gameObject = transform->getParentGameObject();
-                    auto wall = gameObject->getComponent<Wall>();
-                    if (wall == nullptr)  continue;
+                    auto object = transform->getParentGameObject();
+                    auto wall = object->getComponent<Wall>();
+                    auto bomb = object->getComponent<Bomb>();
+                    if (wall == nullptr && bomb == nullptr)  continue;
+                    if (bomb != nullptr && vx > 0 && pushbomb && bomb->getMaster() == this)
+                    {
+                        bomb->setVelocity(QPointF(240, 0));
+                    }
                     if (vx > 0)  vx = 0;
                 }
             }
@@ -63,13 +71,18 @@ void PlayerController::onUpdate(float deltatime)
                     item = item->parentItem();
                 auto transform = dynamic_cast<Transform *>(item);
                 if (transform != nullptr && imagetransform->pos().x() - transform->pos().x() < qreal(40)
-                    && transform->pos().x() < imagetransform->pos().x()
+                    && transform->pos().x() - imagetransform->pos().x() < qreal(-5)
                     && transform->pos().y() - imagetransform->pos().y() < qreal(40)
                     && transform->pos().y() - imagetransform->pos().y() > qreal(-20))
                 {
-                    auto gameObject = transform->getParentGameObject();
-                    auto wall = gameObject->getComponent<Wall>();
-                    if (wall == nullptr)  continue;
+                    auto object = transform->getParentGameObject();
+                    auto wall = object->getComponent<Wall>();
+                    auto bomb = object->getComponent<Bomb>();
+                    if (wall == nullptr && bomb == nullptr)  continue;
+                    if (bomb != nullptr && vx < 0 && pushbomb && bomb->getMaster() == this)
+                    {
+                        bomb->setVelocity(QPointF(-240, 0));
+                    }
                     if (vx < 0)  vx = 0;
                 }
             }
@@ -87,9 +100,14 @@ void PlayerController::onUpdate(float deltatime)
                     && transform->pos().y() - imagetransform->pos().y() > qreal(-30)
                     && transform->pos().y() - imagetransform->pos().y() < 0)
                 {
-                    auto gameObject = transform->getParentGameObject();
-                    auto wall = gameObject->getComponent<Wall>();
-                    if (wall == nullptr)  continue;
+                    auto object = transform->getParentGameObject();
+                    auto wall = object->getComponent<Wall>();
+                    auto bomb = object->getComponent<Bomb>();
+                    if (wall == nullptr && bomb == nullptr)  continue;
+                    if (bomb != nullptr && vy < 0 && pushbomb && bomb->getMaster() == this)
+                    {
+                        bomb->setVelocity(QPointF(0, -240));
+                    }
                     if (vy < 0)  vy = 0;
                 }
             }
@@ -105,19 +123,27 @@ void PlayerController::onUpdate(float deltatime)
                 auto transform = dynamic_cast<Transform *>(item);
                 if (transform != nullptr && abs(transform->pos().x() - imagetransform->pos().x()) < qreal(30)
                     && transform->pos().y() - imagetransform->pos().y() < qreal(44)
-                    && transform->pos().y() - imagetransform->pos().y() > 0)
+                    && transform->pos().y() - imagetransform->pos().y() > 15)
                 {
-                    auto gameObject = transform->getParentGameObject();
-                    auto wall = gameObject->getComponent<Wall>();
-                    if (wall == nullptr)  continue;
+                    auto object = transform->getParentGameObject();
+                    auto wall = object->getComponent<Wall>();
+                    auto bomb = object->getComponent<Bomb>();
+                    if (wall == nullptr && bomb == nullptr)  continue;
+                    if (bomb != nullptr && vy > 0 && pushbomb && bomb->getMaster() == this)
+                    {
+                        bomb->setVelocity(QPointF(0, 240));
+                    }
                     if (vy > 0)  vy = 0;
                 }
             }
         }
-        else if (getKey(Qt::Key_Space))
+        else if (getKeyDown(Qt::Key_Space))
         {
+            //curinterval -= deltatime;
             if (curBombnum >= MostBombnum)
                 return;
+            //curinterval = interval;
+            curBombnum++;
             auto bomb = new GameObject();
             auto classification = new Bomb();
             QPointF pos;
@@ -141,10 +167,11 @@ void PlayerController::onUpdate(float deltatime)
                 .setAlignment(Qt::AlignCenter)
                 .addToGameObject(bomb);
             classification->setMaster(this);
+            classification->setRange(this->BombRange);
+            if (pushbomb)
+                classification->setPushable();
             bomb->addComponent(classification);
-            //bomb->addComponent(new ImageTransform());
             attachGameObject(bomb);
-            curBombnum++;
         }
         break;
     case 2:
@@ -168,7 +195,5 @@ void PlayerController::onUpdate(float deltatime)
     }
     physics->setVelocity(vx, vy);
 }
-
-void PlayerController::ModifyVelocity() {velocity += 80;}
 
 void PlayerController::Death() {dead = true;}

@@ -9,6 +9,7 @@
 #include "usercontroller.h"
 #include "gamecode/playercontroller.h"
 #include "gamecode/gamemap.h"
+#include "gamecode/button.h"
 
 #include "./ui_mainwindow.h"
 
@@ -48,14 +49,57 @@ void loadScene(GameScene *gameScene) {
     floor->addComponent(pic);
     gameScene->attachGameObject(floor);*/
 
-    new Gamemap(gameScene);
+    auto startingpage = new GameObject();
+    ImageTransformBuilder()
+         .setPos(QPointF(400, 300))
+         .setImage(":/images/gamecode/menu/Start.png")
+         .setAlignment(Qt::AlignCenter)
+         .addToGameObject(startingpage);
+    gameScene->attachGameObject(startingpage);
+
+    auto ButtonStart = new GameObject();
+    auto button = new Button(gameScene);
+    button->setType(1);
+    ImageTransformBuilder()
+         .setPos(QPointF(600, 240))
+         .setImage(":/images/gamecode/menu/ButtonStart.png")
+         .setAlignment(Qt::AlignCenter)
+         .addToGameObject(ButtonStart);
+    ButtonStart->addComponent(button);
+    gameScene->attachGameObject(ButtonStart);
+
+    auto ButtonDesciption = new GameObject();
+    auto description = new Button(gameScene);
+    description->setType(2);
+    ImageTransformBuilder()
+         .setPos(QPointF(600, 350))
+         .setImage(":/images/gamecode/menu/ButtonDescription.png")
+         .setAlignment(Qt::AlignCenter)
+         .addToGameObject(ButtonDesciption);
+    ButtonDesciption->addComponent(description);
+    gameScene->attachGameObject(ButtonDesciption);
+
+    auto ButtonExit = new GameObject();
+    auto exit = new Button(gameScene);
+    exit->setType(3);
+    ImageTransformBuilder()
+         .setPos(QPointF(600, 460))
+         .setImage(":/images/gamecode/menu/ButtonExit.png")
+         .setAlignment(Qt::AlignCenter)
+         .addToGameObject(ButtonExit);
+    ButtonExit->addComponent(exit);
+    gameScene->attachGameObject(ButtonExit);
+    button->setMangement(description, 1);
+    button->setMangement(exit, 2);
+    button->setDetachPage(startingpage);
+    /*new Gamemap(gameScene);
     auto player1 = new GameObject();
     auto physics1 = new Physics();
     ImageTransformBuilder()
-        .setPos(QPointF(60, 55))
-        .setImage(":/images/gamecode/player/downward.png")
-        .setAlignment(Qt::AlignCenter)
-        .addToGameObject(player1);
+            .setPos(QPointF(60, 55))
+            .setImage(":/images/gamecode/player/downward.png")
+            .setAlignment(Qt::AlignCenter)
+            .addToGameObject(player1);
     player1->addComponent(new PlayerController(1));
     player1->addComponent(physics1);
     player1->addComponent(new Health(1));
@@ -70,20 +114,20 @@ void loadScene(GameScene *gameScene) {
     player2->addComponent(transform2);
     player2->addComponent(new PlayerController(2));
     player2->addComponent(physics2);
-    //gameScene->attachGameObject(player2);
+    //gameScene->attachGameObject(player2);*/
 }
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
-  ui->setupUi(this);
-  gameScene = new GameScene();
-  gameScene->setParent(this);
-  auto view = new QGraphicsView(gameScene, this);
-  view->setFrameStyle(QFrame::NoFrame);
-  view->resize(this->size());
-  view->setSceneRect(QRect(0, 0, this->width(), this->height()));
+    ui->setupUi(this);
+    gameScene = new GameScene();
+    gameScene->setParent(this);
+    auto view = new QGraphicsView(gameScene, this);
+    view->setFrameStyle(QFrame::NoFrame);
+    view->resize(this->size());
+    view->setSceneRect(QRect(0, 0, this->width(), this->height()));
 
-  loadScene(gameScene);
+    loadScene(gameScene);
 }
 
 MainWindow::~MainWindow() { delete ui; }
