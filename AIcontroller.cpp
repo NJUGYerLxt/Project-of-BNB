@@ -25,7 +25,7 @@ void AIController::onUpdate(float deltatime)
         if (decision == 1 || decision == 2 || decision == 3)
         {
             vy -= velocity;
-            imagetransform->setImage(":/images/images/player/3-up.png");
+            imagetransform->setImage(":/pictures/images/player/3-up.png");
             for (auto item : this->collider->collidingItems())
             {
                 while (item->parentItem() != nullptr)
@@ -51,7 +51,7 @@ void AIController::onUpdate(float deltatime)
         else if (decision == 4 || decision == 5 || decision == 6)
         {
             vy += velocity;
-            imagetransform->setImage(":/images/images/player/3-down.png");
+            imagetransform->setImage(":/pictures/images/player/3-down.png");
             for (auto item : this->collider->collidingItems())
             {
                 while (item->parentItem() != nullptr)
@@ -76,7 +76,7 @@ void AIController::onUpdate(float deltatime)
         else if (decision == 7 || decision == 8 || decision == 9)
         {
             vx -= velocity;
-            imagetransform->setImage(":/images/images/player/3-left.png");
+            imagetransform->setImage(":/pictures/images/player/3-left.png");
             for (auto item : this->collider->collidingItems())
             {
                 while (item->parentItem() != nullptr)
@@ -102,7 +102,7 @@ void AIController::onUpdate(float deltatime)
         else if (decision == 10 || decision == 11 || decision == 12)
         {
             vx += velocity;
-            imagetransform->setImage(":/images/images/player/3-right.png");
+            imagetransform->setImage(":/pictures/images/player/3-right.png");
             for (auto item : this->collider->collidingItems())
             {
                 while (item->parentItem() != nullptr)
@@ -149,7 +149,7 @@ void AIController::onUpdate(float deltatime)
             }
             ImageTransformBuilder()
                     .setPos(pos)
-                    .setImage(":/images/images/map/bomb.png")
+                    .setImage(":/pictures/images/map/bomb.png")
                     .setAlignment(Qt::AlignCenter)
                     .addToGameObject(bomb);
             classification->setMaster(this);
@@ -168,7 +168,7 @@ void AIController::onUpdate(float deltatime)
         if (decision == 1 || decision == 2 || decision == 3)
         {
             vy -= velocity;
-            imagetransform->setImage(":/images/images/player/4-up.png");
+            imagetransform->setImage(":/pictures/images/player/4-up.png");
             for (auto item : this->collider->collidingItems())
             {
                 while (item->parentItem() != nullptr)
@@ -194,7 +194,7 @@ void AIController::onUpdate(float deltatime)
         else if (decision == 4 || decision == 5 || decision == 6)
         {
             vy += velocity;
-            imagetransform->setImage(":/images/images/player/4-down.png");
+            imagetransform->setImage(":/pictures/images/player/4-down.png");
             for (auto item : this->collider->collidingItems())
             {
                 while (item->parentItem() != nullptr)
@@ -219,7 +219,7 @@ void AIController::onUpdate(float deltatime)
         else if (decision == 7 || decision == 8 || decision == 9)
         {
             vx -= velocity;
-            imagetransform->setImage(":/images/images/player/4-left.png");
+            imagetransform->setImage(":/pictures/images/player/4-left.png");
             for (auto item : this->collider->collidingItems())
             {
                 while (item->parentItem() != nullptr)
@@ -245,7 +245,7 @@ void AIController::onUpdate(float deltatime)
         else if (decision == 10 || decision == 11 || decision == 12)
         {
             vx += velocity;
-            imagetransform->setImage(":/images/images/player/4-right.png");
+            imagetransform->setImage(":/pictures/images/player/4-right.png");
             for (auto item : this->collider->collidingItems())
             {
                 while (item->parentItem() != nullptr)
@@ -292,7 +292,7 @@ void AIController::onUpdate(float deltatime)
             }
             ImageTransformBuilder()
                     .setPos(pos)
-                    .setImage(":/images/images/map/bomb.png")
+                    .setImage(":/pictures/images/map/bomb.png")
                     .setAlignment(Qt::AlignCenter)
                     .addToGameObject(bomb);
             classification->setMaster(this);

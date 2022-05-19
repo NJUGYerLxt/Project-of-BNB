@@ -52,7 +52,7 @@ Gamemap::Gamemap(GameScene *gameScene)
             case 0:
                 ImageTransformBuilder()
                     .setPos(QPointF(40*j+20, 40*i+20))
-                    .setImage(":/images/images/map/floor.png")
+                    .setImage(":/pictures/images/map/floor.png")
                     .setAlignment(Qt::AlignCenter)
                     .addToGameObject(block[i][j]);
                 break;
@@ -70,7 +70,7 @@ Gamemap::Gamemap(GameScene *gameScene)
                 }*/
                 ImageTransformBuilder()
                     .setPos(QPointF(40*j+20, 40*i+20))
-                    .setImage(":/images/images/map/softwall.png")
+                    .setImage(":/pictures/images/map/softwall.png")
                     .setAlignment(Qt::AlignCenter)
                     .addToGameObject(block[i][j]);
                 //hitable->setGameScene(gameScene);
@@ -80,7 +80,7 @@ Gamemap::Gamemap(GameScene *gameScene)
             case 2:
                 ImageTransformBuilder()
                     .setPos(QPointF(40*j+20, 40*i+20))
-                    .setImage(":/images/images/map/hardwall.png")
+                    .setImage(":/pictures/images/map/hardwall.png")
                     .setAlignment(Qt::AlignCenter)
                     .addToGameObject(block[i][j]);
                 //block[i][j]->addComponent(new Health(-1));

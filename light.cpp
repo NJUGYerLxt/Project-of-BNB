@@ -67,10 +67,10 @@ void Light::onFirstUpdate()
         switch(type)
         {
         case 1:
-            imagetransform->setImage(":/images/images/map/horizontallight.png");
+            imagetransform->setImage(":/pictures/images/map/horizontallight.png");
             break;
         case 2:
-            imagetransform->setImage(":/images/images/map/verticallight.png");
+            imagetransform->setImage(":/pictures/images/map/verticallight.png");
             break;
         }
         //attachGameObject(this->getParentGameObject());
@@ -139,7 +139,7 @@ void Light::onUpdate(float deltatime)
         light->addComponent(component);
         ImageTransformBuilder()
                 .setPos(pos)
-                .setImage(":/images/images/map/transparentlight.png")
+                .setImage(":/pictures/images/map/transparentlight.png")
                 .setAlignment(Qt::AlignCenter)
                 .addToGameObject(light);
         attachGameObject(light);

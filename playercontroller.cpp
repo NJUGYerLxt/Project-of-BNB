@@ -42,7 +42,7 @@ void PlayerController::onUpdate(float deltatime)
         if (getKey(Qt::Key_D))
         {
             vx += velocity;
-            imagetransform->setImage(":/images/images/player/rightward.png");
+            imagetransform->setImage(":/pictures/images/player/rightward.png");
             for (auto item : this->collider->collidingItems())
             {
                 while (item->parentItem() != nullptr)
@@ -68,7 +68,7 @@ void PlayerController::onUpdate(float deltatime)
         else if (getKey(Qt::Key_A))
         {
             vx -= velocity;
-            imagetransform->setImage(":/images/images/player/leftward.png");
+            imagetransform->setImage(":/pictures/images/player/leftward.png");
             for (auto item : this->collider->collidingItems())
             {
                 while (item->parentItem() != nullptr)
@@ -94,7 +94,7 @@ void PlayerController::onUpdate(float deltatime)
         else if (getKey(Qt::Key_W))
         {
             vy -= velocity;
-            imagetransform->setImage(":/images/images/player/upward.png");
+            imagetransform->setImage(":/pictures/images/player/upward.png");
             for (auto item : this->collider->collidingItems())
             {
                 while (item->parentItem() != nullptr)
@@ -119,7 +119,7 @@ void PlayerController::onUpdate(float deltatime)
         else if (getKey(Qt::Key_S))
         {
             vy += velocity;
-            imagetransform->setImage(":/images/images/player/downward.png");
+            imagetransform->setImage(":/pictures/images/player/downward.png");
             for (auto item : this->collider->collidingItems())
             {
                 while (item->parentItem() != nullptr)
@@ -167,7 +167,7 @@ void PlayerController::onUpdate(float deltatime)
             }
             ImageTransformBuilder()
                 .setPos(pos)
-                .setImage(":/images/images/map/bomb.png")
+                .setImage(":/pictures/images/map/bomb.png")
                 .setAlignment(Qt::AlignCenter)
                 .addToGameObject(bomb);
             classification->setMaster(this);
@@ -182,7 +182,7 @@ void PlayerController::onUpdate(float deltatime)
         if (getKey(Qt::Key_Right))
         {
             vx += velocity;
-            imagetransform->setImage(":/images/images/player/2-right.png");
+            imagetransform->setImage(":/pictures/images/player/2-right.png");
             for (auto item : this->collider->collidingItems())
             {
                 while (item->parentItem() != nullptr)
@@ -208,7 +208,7 @@ void PlayerController::onUpdate(float deltatime)
         else if (getKey(Qt::Key_Left))
         {
             vx -= velocity;
-            imagetransform->setImage(":/images/images/player/2-left.png");
+            imagetransform->setImage(":/pictures/images/player/2-left.png");
             for (auto item : this->collider->collidingItems())
             {
                 while (item->parentItem() != nullptr)
@@ -234,7 +234,7 @@ void PlayerController::onUpdate(float deltatime)
         else if (getKey(Qt::Key_Up))
         {
             vy -= velocity;
-            imagetransform->setImage(":/images/images/player/2-up.png");
+            imagetransform->setImage(":/pictures/images/player/2-up.png");
             for (auto item : this->collider->collidingItems())
             {
                 while (item->parentItem() != nullptr)
@@ -259,7 +259,7 @@ void PlayerController::onUpdate(float deltatime)
         else if (getKey(Qt::Key_Down))
         {
             vy += velocity;
-            imagetransform->setImage(":/images/images/player/2-down.png");
+            imagetransform->setImage(":/pictures/images/player/2-down.png");
             for (auto item : this->collider->collidingItems())
             {
                 while (item->parentItem() != nullptr)
@@ -307,7 +307,7 @@ void PlayerController::onUpdate(float deltatime)
             }
             ImageTransformBuilder()
                 .setPos(pos)
-                .setImage(":/images/images/map/bomb.png")
+                .setImage(":/pictures/images/map/bomb.png")
                 .setAlignment(Qt::AlignCenter)
                 .addToGameObject(bomb);
             classification->setMaster(this);

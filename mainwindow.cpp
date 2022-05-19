@@ -14,7 +14,7 @@ void loadScene(GameScene *gameScene) {
     auto startingpage = new GameObject();
     ImageTransformBuilder()
          .setPos(QPointF(420, 330))
-         .setImage(":/images/images/menu/Start.png")
+         .setImage(":/pictures/images/menu/Start.png")
          .setAlignment(Qt::AlignCenter)
          .addToGameObject(startingpage);
     gameScene->attachGameObject(startingpage);
@@ -24,7 +24,7 @@ void loadScene(GameScene *gameScene) {
     button->setType(1);
     ImageTransformBuilder()
          .setPos(QPointF(600, 240))
-         .setImage(":/images/images/menu/ButtonStart.png")
+         .setImage(":/pictures/images/menu/ButtonStart.png")
          .setAlignment(Qt::AlignCenter)
          .addToGameObject(ButtonStart);
     ButtonStart->addComponent(button);
@@ -35,7 +35,7 @@ void loadScene(GameScene *gameScene) {
     description->setType(2);
     ImageTransformBuilder()
          .setPos(QPointF(600, 350))
-         .setImage(":/images/images/menu/ButtonDescription.png")
+         .setImage(":/pictures/images/menu/ButtonDescription.png")
          .setAlignment(Qt::AlignCenter)
          .addToGameObject(ButtonDesciption);
     ButtonDesciption->addComponent(description);
@@ -46,7 +46,7 @@ void loadScene(GameScene *gameScene) {
     exit->setType(3);
     ImageTransformBuilder()
          .setPos(QPointF(600, 460))
-         .setImage(":/images/images/menu/ButtonExit.png")
+         .setImage(":/pictures/images/menu/ButtonExit.png")
          .setAlignment(Qt::AlignCenter)
          .addToGameObject(ButtonExit);
     ButtonExit->addComponent(exit);

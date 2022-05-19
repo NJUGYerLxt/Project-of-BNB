@@ -13,7 +13,7 @@ void Health::beHit() {
       {
           this->gameObject->getComponent<PlayerController>()->Death();
           this->gameObject->getComponent<Physics>()->setVelocity(0, 0);
-          this->gameObject->getComponent<ImageTransform>()->setImage(":/images/images/player/death.png");
+          this->gameObject->getComponent<ImageTransform>()->setImage(":/pictures/images/player/death.png");
       }
       else
           destory(this->gameObject);
