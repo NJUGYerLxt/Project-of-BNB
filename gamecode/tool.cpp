@@ -41,9 +41,10 @@ void Tool::onUpdate(float deltatime)
         auto gameObject = transform->getParentGameObject();
         auto player = gameObject->getComponent<PlayerController>();
         if (player != nullptr && abs(transform->pos().x() - imagetransform->pos().x()) < qreal(30)
-            && transform->pos().y() - imagetransform->pos().y() < qreal(44)
+            && transform->pos().y() - imagetransform->pos().y() < qreal(20)
             && transform->pos().y() - imagetransform->pos().y() > qreal(-30))
         {
+            player->ModifyScore(pickuptools);
             switch (type)
             {
             case 1:

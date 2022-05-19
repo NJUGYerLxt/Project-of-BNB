@@ -23,5 +23,25 @@
         <file>gamecode/menu/ButtonDescription.png</file>
         <file>gamecode/menu/ButtonExit.png</file>
         <file>gamecode/menu/ButtonStart.png</file>
+        <file>gamecode/player/2-down.png</file>
+        <file>gamecode/player/2-left.png</file>
+        <file>gamecode/player/2-right.png</file>
+        <file>gamecode/player/2-up.png</file>
+        <file>gamecode/player/3-down.png</file>
+        <file>gamecode/player/3-left.png</file>
+        <file>gamecode/player/3-right.png</file>
+        <file>gamecode/player/3-up.png</file>
+        <file>gamecode/menu/Description.png</file>
+        <file>gamecode/player/4-down.png</file>
+        <file>gamecode/player/4-left.png</file>
+        <file>gamecode/player/4-right.png</file>
+        <file>gamecode/player/4-up.png</file>
+        <file>gamecode/menu/StopButton.png</file>
+        <file>gamecode/menu/ScoreBoard.png</file>
+        <file>gamecode/menu/1-Score.png</file>
+        <file>gamecode/menu/2-Score.png</file>
+        <file>gamecode/menu/4-Score.png</file>
+        <file>gamecode/menu/3-Score.png</file>
+        <file>gamecode/map/bomb-2.png</file>
     </qresource>
 </RCC>

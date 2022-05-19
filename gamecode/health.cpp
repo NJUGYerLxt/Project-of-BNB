@@ -5,7 +5,8 @@
 Health::Health(int health) : health(health) {}
 
 void Health::beHit() {
-  health--;
+  if (health >= 0)
+      health--;
   if (health <= 0)
   {
       if (this->gameObject->getComponent<PlayerController>() != nullptr)
@@ -24,8 +25,8 @@ void Health::onUpdate(float deltatime)
     if (health > 0)
         return;
     presenttime -= deltatime;
-    if (presenttime <= 0)
-        destory(this->gameObject);
+    if (presenttime <= 0 && this->gameObject->getComponent<PlayerController>() != nullptr)
+        detachGameObject(this->gameObject);
 }
 
 int Health::gethealth() {return health;}

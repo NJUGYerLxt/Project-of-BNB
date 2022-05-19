@@ -32,7 +32,9 @@ void Light::onFirstUpdate()
         if (trans == nullptr)  continue;
         auto gameObject = trans->getParentGameObject();
         auto hitable = gameObject->getComponent<Hitable>();
-        if (hitable == nullptr && gameObject->getComponent<Wall>() != nullptr)
+        if (hitable == nullptr
+            && (gameObject->getComponent<Wall>() != nullptr
+            || (gameObject != parentBomb->getParentGameObject() && gameObject->getComponent<Bomb>() != nullptr)))
         {
             hitwall = true;
             continue;
@@ -42,15 +44,23 @@ void Light::onFirstUpdate()
         {
             if (gameObject->getComponent<PlayerController>() == nullptr)
                 hitable->beHit();
-            else if (abs(trans->pos().x() - imagetransform->pos().x()) < qreal(30)
+            else if (abs(trans->pos().x() - imagetransform->pos().x()) < qreal(40)
                      && trans->pos().y() - imagetransform->pos().y() < qreal(35)
-                     && trans->pos().y() - imagetransform->pos().y() > qreal(-5))
+                     && trans->pos().y() - imagetransform->pos().y() > qreal(-10))
+            {
                 hitable->beHit();
+                auto master = parentBomb->getMaster();
+                if (master != nullptr && gameObject->getComponent<PlayerController>() != master)
+                    master->ModifyScore(hitplayer);
+            }
             if (gameObject->getComponent<Wall>() != nullptr)
             {
                 hitwall = true;
                 gameObject->removeComponent(gameObject->getComponent<Wall>());
                 gameObject->removeComponent(hitable);
+                auto master = parentBomb->getMaster();
+                if (master != nullptr)
+                    master->ModifyScore(hitsoftwall);
             }
         }
 
@@ -83,8 +93,8 @@ void Light::onUpdate(float deltatime)
         auto gameObject = transform->getParentGameObject();
         auto hitable = gameObject->getComponent<Hitable>();
         if (hitable == nullptr
-                && (gameObject->getComponent<Wall>() != nullptr
-                    || (gameObject != parentBomb->getParentGameObject() && gameObject->getComponent<Bomb>() != nullptr)))
+            && (gameObject->getComponent<Wall>() != nullptr && abs(transform->pos().x() - imagetransform->pos().x()) < qreal(30)
+            || (gameObject != parentBomb->getParentGameObject() && gameObject->getComponent<Bomb>() != nullptr)))
         {
             hitwall = true;
             continue;
@@ -92,10 +102,15 @@ void Light::onUpdate(float deltatime)
         if (hitable != nullptr)
         {
             if (gameObject->getComponent<PlayerController>() != nullptr
-                    && abs(transform->pos().x() - imagetransform->pos().x()) < qreal(30)
-                    && transform->pos().y() - imagetransform->pos().y() < qreal(44)
-                    && transform->pos().y() - imagetransform->pos().y() > qreal(-15))
+                    && abs(transform->pos().x() - imagetransform->pos().x()) < qreal(35)
+                    && transform->pos().y() - imagetransform->pos().y() < qreal(35)
+                    && transform->pos().y() - imagetransform->pos().y() > qreal(-10))
+            {
                 hitable->beHit();
+                auto master = parentBomb->getMaster();
+                if (master != nullptr && gameObject->getComponent<PlayerController>() != master)
+                    master->ModifyScore(hitplayer);
+            }
         }
     }
     if (!hitwall && currange < parentBomb->getRange() && !generate)

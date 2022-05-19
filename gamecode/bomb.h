@@ -26,6 +26,8 @@ public:
 protected:
     const float bombtime = 2.5;
     const float cooltime = 1;
+    const float changetime = 0.5;
+    float change = changetime;
     float cooldown = cooltime;
     float countdown = bombtime;
     void explode(float deltatime);
@@ -41,6 +43,9 @@ private:
     bool GenerateLight = false;
     bool Destoried = false;
     bool pushable = false;
+    int condition = 0;
+    const int hitplayer = 200;
+    const int hitsoftwall = 10;
 };
 
 #endif // BOMB_H

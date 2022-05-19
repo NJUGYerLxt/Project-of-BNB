@@ -20,6 +20,7 @@ protected:
     int type;
     ImageTransform *imagetransform;
     QGraphicsItem *collider = nullptr;
+    const int pickuptools = 15;
 };
 
 #endif // TOOL_H

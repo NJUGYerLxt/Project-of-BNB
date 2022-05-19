@@ -30,6 +30,9 @@ protected:
     int direction;  //1上 2下 3左 4右
     bool hitwall = false;
     bool generate = false;
+    const int hitplayer = 200;
+    const int hitsoftwall = 10;
+    const int pickuptools = 15;
 };
 
 #endif // LIGHT_H

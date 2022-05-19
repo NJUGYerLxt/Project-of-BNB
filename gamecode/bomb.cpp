@@ -117,6 +117,21 @@ void Bomb::explode(float deltatime)
 void Bomb::onUpdate(float deltatime)
 {
     countdown -= deltatime;
+    change -= deltatime;
+    if (change <= 0)
+    {
+        change = changetime;
+        switch(condition)
+        {
+        case 0:
+            imagetransform->setImage(":/images/gamecode/map/bomb-2.png");
+            break;
+        case 1:
+            imagetransform->setImage(":/images/gamecode/map/bomb.png");
+            break;
+        }
+        condition = 1 - condition;
+    }
     if (!pushable)
         velocity = QPointF(0, 0);
     imagetransform->setPos(imagetransform->pos() + velocity * deltatime);

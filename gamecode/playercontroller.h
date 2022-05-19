@@ -17,27 +17,29 @@ public:
     void ModifyVelocity();
     void ModifyBombRange();
     void ModifyPushBomb();
+    void ModifyScore(int score);
+    int getScore();
 
     void onAttach() override;
     void onUpdate(float deltaTime) override;
     void Death();
 
 protected:
-    Transform *transform = nullptr;
     ImageTransform *imagetransform = nullptr;
     QGraphicsItem *collider = nullptr;
     Physics *physics;
+    int MostBombnum = 1;
+    int curBombnum = 0;
+    int velocity = 160;
+    int BombRange = 1;
+    int score = 0;
+    bool dead = false;
+    bool pushbomb = false;
 
 private:
     int type;
     const int interval = 1;
     int curinterval = interval;
-    int MostBombnum = 1;
-    int curBombnum = 0;
-    int velocity = 160;
-    int BombRange = 1;
-    bool dead = false;
-    bool pushbomb = false;
 };
 
 #endif // PLAYERCONTROLLER_H

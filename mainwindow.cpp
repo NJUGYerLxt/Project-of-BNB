@@ -51,7 +51,7 @@ void loadScene(GameScene *gameScene) {
 
     auto startingpage = new GameObject();
     ImageTransformBuilder()
-         .setPos(QPointF(400, 300))
+         .setPos(QPointF(420, 330))
          .setImage(":/images/gamecode/menu/Start.png")
          .setAlignment(Qt::AlignCenter)
          .addToGameObject(startingpage);
@@ -92,6 +92,7 @@ void loadScene(GameScene *gameScene) {
     button->setMangement(description, 1);
     button->setMangement(exit, 2);
     button->setDetachPage(startingpage);
+    button->setMainwindow(dynamic_cast<MainWindow *>(gameScene->parent()));
     /*new Gamemap(gameScene);
     auto player1 = new GameObject();
     auto physics1 = new Physics();
@@ -122,6 +123,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     gameScene = new GameScene();
     gameScene->setParent(this);
+    this->setMinimumSize(800, 800);
     auto view = new QGraphicsView(gameScene, this);
     view->setFrameStyle(QFrame::NoFrame);
     view->resize(this->size());

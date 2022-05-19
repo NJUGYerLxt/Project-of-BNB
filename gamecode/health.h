@@ -7,15 +7,13 @@ class Health : public Hitable
 {
 public:
     explicit Health(int health);
-    //Health(GameScene *gamescene);
     void beHit() override;
-    //void onAttach() override;
     void onUpdate(float deltatime) override;
     int gethealth();
 
 protected:
     int health;
-    int presenttime = 1;
+    int presenttime = 20;
     GameScene *gameScene;
 };
 

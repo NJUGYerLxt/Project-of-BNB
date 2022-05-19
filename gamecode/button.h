@@ -12,6 +12,7 @@
 #include "playercontroller.h"
 #include "AIcontroller.h"
 #include "gamemap.h"
+#include "mainwindow.h"
 
 class Button: public Component
 {
@@ -19,6 +20,7 @@ public:
     Button(GameScene *gameScene);
     void setMangement(Button *button, int type); //1为说明 2为退出
     void setDetachPage(GameObject *page);
+    void setMainwindow(MainWindow *mainwindow);
     void onClick(QGraphicsSceneMouseEvent *ev) override;
     void onAttach() override;
     void onUpdate(float deltatime) override;
@@ -30,8 +32,11 @@ protected:
     Button *description;
     Button *exit;
     GameScene *gameScene;
-    GameObject *StartingPage;
+    GameObject *StartingPage = nullptr;
+    GameObject *Des = nullptr;
+    MainWindow *mainwindow;
     bool attached = false;
+    bool clicked = false;
 };
 
 #endif // BUTTON_H

@@ -11,7 +11,7 @@ void Hitable::beHit()
     if (this->gameObject->getComponent<Wall>() != nullptr)
     {
         this->gameObject->getComponent<ImageTransform>()->setImage(":/images/gamecode/map/floor.png");
-        int generator = rand() % 4 + 1;
+        int generator = rand() % 10 + 1;
         if (generator <= 4)
         {
         auto tool = new GameObject();

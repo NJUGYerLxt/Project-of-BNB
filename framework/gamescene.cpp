@@ -35,6 +35,10 @@ GameObject *GameScene::getGameObject(const char *name) { //在 gameObjects 列�
   return nullptr;
 }
 
+void GameScene::BeginUpdate() {this->updateTimer->start();}
+
+void GameScene::StopUpdate() {this->updateTimer->stop();}
+
 void GameScene::onUpdate() {
   // Do firstUpdate() for game objects
   for (auto gameObject : gameObjectsAttachedOnLastUpdate) {
