@@ -30,7 +30,7 @@ set(PROJECT_SOURCES
         ammo.h ammo.cpp
         shooter.h shooter.cpp
         summondummy.h summondummy.cpp
-        physics.h physics.cpp
+        gamecode/physics.h gamecode/physics.cpp
         usercontroller.h usercontroller.cpp
 
         gamecode/gamemap.h gamecode/gamemap.cpp

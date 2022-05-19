@@ -5,7 +5,7 @@
 #include "shooter.h"
 #include "summondummy.h"
 #include "transformbuilder.h"
-#include "physics.h"
+#include "gamecode/physics.h"
 #include "usercontroller.h"
 #include "gamecode/playercontroller.h"
 #include "gamecode/gamemap.h"

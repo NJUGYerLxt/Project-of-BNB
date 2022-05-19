@@ -4,7 +4,7 @@
 #include "component.h"
 #include "gameobject.h"
 #include "transform.h"
-#include "physics.h"
+#include "gamecode/physics.h"
 
 
 class UserController: public Component
