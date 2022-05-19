@@ -43,5 +43,48 @@
         <file>gamecode/menu/4-Score.png</file>
         <file>gamecode/menu/3-Score.png</file>
         <file>gamecode/map/bomb-2.png</file>
+        <file>images/map/bomb-2.png</file>
+        <file>images/map/bomb.png</file>
+        <file>images/map/bombing.png</file>
+        <file>images/map/BombTool.png</file>
+        <file>images/map/floor.png</file>
+        <file>images/map/hardwall.png</file>
+        <file>images/map/horizontallight.png</file>
+        <file>images/map/PushTool.png</file>
+        <file>images/map/RangeTool.png</file>
+        <file>images/map/softwall.png</file>
+        <file>images/map/SpeedTool.png</file>
+        <file>images/map/transparentbomb.png</file>
+        <file>images/map/transparentlight.png</file>
+        <file>images/map/verticallight.png</file>
+        <file>images/menu/1-Score.png</file>
+        <file>images/menu/2-Score.png</file>
+        <file>images/menu/3-Score.png</file>
+        <file>images/menu/4-Score.png</file>
+        <file>images/menu/button.png</file>
+        <file>images/menu/ButtonDescription.png</file>
+        <file>images/menu/ButtonExit.png</file>
+        <file>images/menu/ButtonStart.png</file>
+        <file>images/menu/Description.png</file>
+        <file>images/menu/ScoreBoard.png</file>
+        <file>images/menu/Start.png</file>
+        <file>images/menu/StopButton.png</file>
+        <file>images/player/2-down.png</file>
+        <file>images/player/2-left.png</file>
+        <file>images/player/2-right.png</file>
+        <file>images/player/2-up.png</file>
+        <file>images/player/3-down.png</file>
+        <file>images/player/3-left.png</file>
+        <file>images/player/3-right.png</file>
+        <file>images/player/3-up.png</file>
+        <file>images/player/4-down.png</file>
+        <file>images/player/4-left.png</file>
+        <file>images/player/4-right.png</file>
+        <file>images/player/4-up.png</file>
+        <file>images/player/death.png</file>
+        <file>images/player/downward.png</file>
+        <file>images/player/leftward.png</file>
+        <file>images/player/rightward.png</file>
+        <file>images/player/upward.png</file>
     </qresource>
 </RCC>

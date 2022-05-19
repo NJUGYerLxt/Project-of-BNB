@@ -49,7 +49,7 @@ void Bomb::explode(float deltatime)
             gameObject->removeComponent(hitable);
         }
     }
-    imagetransform->setImage(":/images/gamecode/map/bombing.png");
+    imagetransform->setImage(":/images/images/map/bombing.png");
     cooldown -= deltatime;
     if (cooldown <= 0 && !Destoried)
     {
@@ -68,7 +68,7 @@ void Bomb::explode(float deltatime)
     lightleft->addComponent(componentleft);
     ImageTransformBuilder()
         .setPos(pos)
-        .setImage(":/images/gamecode/map/transparentlight.png")
+        .setImage(":/images/images/map/transparentlight.png")
         .setAlignment(Qt::AlignCenter)
         .addToGameObject(lightleft);
     attachGameObject(lightleft);
@@ -81,7 +81,7 @@ void Bomb::explode(float deltatime)
     lightright->addComponent(componentright);
     ImageTransformBuilder()
         .setPos(pos)
-        .setImage(":/images/gamecode/map/transparentlight.png")
+        .setImage(":/images/images/map/transparentlight.png")
         .setAlignment(Qt::AlignCenter)
         .addToGameObject(lightright);
     attachGameObject(lightright);
@@ -94,7 +94,7 @@ void Bomb::explode(float deltatime)
     lightup->addComponent(componentup);
     ImageTransformBuilder()
         .setPos(pos)
-        .setImage(":/images/gamecode/map/transparentlight.png")
+        .setImage(":/images/images/map/transparentlight.png")
         .setAlignment(Qt::AlignCenter)
         .addToGameObject(lightup);
     attachGameObject(lightup);
@@ -107,7 +107,7 @@ void Bomb::explode(float deltatime)
     lightdown->addComponent(componentdown);
     ImageTransformBuilder()
         .setPos(pos)
-        .setImage(":/images/gamecode/map/transparentlight.png")
+        .setImage(":/images/images/map/transparentlight.png")
         .setAlignment(Qt::AlignCenter)
         .addToGameObject(lightdown);
     attachGameObject(lightdown);
@@ -125,10 +125,10 @@ void Bomb::onUpdate(float deltatime)
         switch(condition)
         {
         case 0:
-            imagetransform->setImage(":/images/gamecode/map/bomb-2.png");
+            imagetransform->setImage(":/images/images/map/bomb-2.png");
             break;
         case 1:
-            imagetransform->setImage(":/images/gamecode/map/bomb.png");
+            imagetransform->setImage(":/images/images/map/bomb.png");
             break;
         }
         condition = 1 - condition;

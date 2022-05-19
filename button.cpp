@@ -49,7 +49,7 @@ void Button::onClick(QGraphicsSceneMouseEvent *ev)
         auto controller1 = new PlayerController(1);
         ImageTransformBuilder()
             .setPos(QPointF(60, 55))
-            .setImage(":/images/gamecode/player/downward.png")
+            .setImage(":/images/images/player/downward.png")
             .setAlignment(Qt::AlignCenter)
             .addToGameObject(player1);
         player1->addComponent(controller1);
@@ -62,7 +62,7 @@ void Button::onClick(QGraphicsSceneMouseEvent *ev)
         auto controller2 = new PlayerController(2);
         ImageTransformBuilder()
             .setPos(QPointF(740, 535))
-            .setImage(":/images/gamecode/player/2-up.png")
+            .setImage(":/images/images/player/2-up.png")
             .setAlignment(Qt::AlignCenter)
             .addToGameObject(player2);
         player2->addComponent(controller2);
@@ -75,7 +75,7 @@ void Button::onClick(QGraphicsSceneMouseEvent *ev)
         auto controller3 = new AIController(1);
         ImageTransformBuilder()
             .setPos(QPointF(740, 55))
-            .setImage(":/images/gamecode/player/3-down.png")
+            .setImage(":/images/images/player/3-down.png")
             .setAlignment(Qt::AlignCenter)
             .addToGameObject(player3);
         player3->addComponent(controller3);
@@ -88,7 +88,7 @@ void Button::onClick(QGraphicsSceneMouseEvent *ev)
         auto controller4 = new AIController(2);
         ImageTransformBuilder()
             .setPos(QPointF(60, 535))
-            .setImage(":/images/gamecode/player/4-up.png")
+            .setImage(":/images/images/player/4-up.png")
             .setAlignment(Qt::AlignCenter)
             .addToGameObject(player4);
         player4->addComponent(controller4);
@@ -99,7 +99,7 @@ void Button::onClick(QGraphicsSceneMouseEvent *ev)
         auto stopbutton = new GameObject();
         ImageTransformBuilder()
             .setPos(QPointF(50, 625))
-            .setImage(":/images/gamecode/menu/StopButton.png")
+            .setImage(":/images/images/menu/StopButton.png")
             .setAlignment(Qt::AlignCenter)
             .addToGameObject(stopbutton);
         stopbutton->addComponent(new StopButton(gameScene));
@@ -108,7 +108,7 @@ void Button::onClick(QGraphicsSceneMouseEvent *ev)
         auto playerscore1 = new GameObject();
         ImageTransformBuilder()
             .setPos(QPointF(135, 625))
-            .setImage(":/images/gamecode/menu/1-Score.png")
+            .setImage(":/images/images/menu/1-Score.png")
             .setAlignment(Qt::AlignCenter)
             .addToGameObject(playerscore1);
         gameScene->attachGameObject(playerscore1);
@@ -116,7 +116,7 @@ void Button::onClick(QGraphicsSceneMouseEvent *ev)
         auto board1 = new ScoreBoard(controller1);
         ImageTransformBuilder()
             .setPos(QPointF(170, 615))
-            .setImage(":/images/gamecode/menu/ScoreBoard.png")
+            .setImage(":/images/images/menu/ScoreBoard.png")
             .setAlignment(Qt::AlignCenter)
             .addToGameObject(scoreboard1);
         scoreboard1->addComponent(board1);
@@ -125,7 +125,7 @@ void Button::onClick(QGraphicsSceneMouseEvent *ev)
         auto playerscore2 = new GameObject();
         ImageTransformBuilder()
             .setPos(QPointF(300, 625))
-            .setImage(":/images/gamecode/menu/2-Score.png")
+            .setImage(":/images/images/menu/2-Score.png")
             .setAlignment(Qt::AlignCenter)
             .addToGameObject(playerscore2);
         gameScene->attachGameObject(playerscore2);
@@ -133,7 +133,7 @@ void Button::onClick(QGraphicsSceneMouseEvent *ev)
         auto board2 = new ScoreBoard(controller2);
         ImageTransformBuilder()
             .setPos(QPointF(335, 615))
-            .setImage(":/images/gamecode/menu/ScoreBoard.png")
+            .setImage(":/images/images/menu/ScoreBoard.png")
             .setAlignment(Qt::AlignCenter)
             .addToGameObject(scoreboard2);
         scoreboard2->addComponent(board2);
@@ -142,7 +142,7 @@ void Button::onClick(QGraphicsSceneMouseEvent *ev)
         auto playerscore3 = new GameObject();
         ImageTransformBuilder()
             .setPos(QPointF(465, 625))
-            .setImage(":/images/gamecode/menu/3-Score.png")
+            .setImage(":/images/images/menu/3-Score.png")
             .setAlignment(Qt::AlignCenter)
             .addToGameObject(playerscore3);
         gameScene->attachGameObject(playerscore3);
@@ -150,7 +150,7 @@ void Button::onClick(QGraphicsSceneMouseEvent *ev)
         auto board3 = new ScoreBoard(controller3);
         ImageTransformBuilder()
             .setPos(QPointF(500, 615))
-            .setImage(":/images/gamecode/menu/ScoreBoard.png")
+            .setImage(":/images/images/menu/ScoreBoard.png")
             .setAlignment(Qt::AlignCenter)
             .addToGameObject(scoreboard3);
         scoreboard3->addComponent(board3);
@@ -159,7 +159,7 @@ void Button::onClick(QGraphicsSceneMouseEvent *ev)
         auto playerscore4 = new GameObject();
         ImageTransformBuilder()
             .setPos(QPointF(635, 625))
-            .setImage(":/images/gamecode/menu/4-Score.png")
+            .setImage(":/images/images/menu/4-Score.png")
             .setAlignment(Qt::AlignCenter)
             .addToGameObject(playerscore4);
         gameScene->attachGameObject(playerscore4);
@@ -167,7 +167,7 @@ void Button::onClick(QGraphicsSceneMouseEvent *ev)
         auto board4 = new ScoreBoard(controller4);
         ImageTransformBuilder()
             .setPos(QPointF(670, 615))
-            .setImage(":/images/gamecode/menu/ScoreBoard.png")
+            .setImage(":/images/images/menu/ScoreBoard.png")
             .setAlignment(Qt::AlignCenter)
             .addToGameObject(scoreboard4);
         scoreboard4->addComponent(board4);
@@ -182,7 +182,7 @@ void Button::onClick(QGraphicsSceneMouseEvent *ev)
             auto des = new GameObject();
             ImageTransformBuilder()
                 .setPos(QPointF(260, 300))
-                .setImage(":/images/gamecode/menu/Description.png")
+                .setImage(":/images/images/menu/Description.png")
                 .setAlignment(Qt::AlignCenter)
                 .addToGameObject(des);
             Des = des;

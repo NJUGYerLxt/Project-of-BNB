@@ -10,7 +10,7 @@ void Hitable::beHit()
 {
     if (this->gameObject->getComponent<Wall>() != nullptr)
     {
-        this->gameObject->getComponent<ImageTransform>()->setImage(":/images/gamecode/map/floor.png");
+        this->gameObject->getComponent<ImageTransform>()->setImage(":/images/images/map/floor.png");
         int generator = rand() % 10 + 1;
         if (generator <= 4)
         {

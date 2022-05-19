@@ -16,16 +16,16 @@ void Tool::onFirstUpdate()
     switch (type)  //1加速 2加范围 3炸弹数加一 4推炸弹
     {
     case 1:
-        imagetransform->setImage(":/images/gamecode/map/SpeedTool.png");
+        imagetransform->setImage(":/images/images/map/SpeedTool.png");
         break;
     case 2:
-        imagetransform->setImage(":/images/gamecode/map/RangeTool.png");
+        imagetransform->setImage(":/images/images/map/RangeTool.png");
         break;
     case 3:
-        imagetransform->setImage(":/images/gamecode/map/BombTool.png");
+        imagetransform->setImage(":/images/images/map/BombTool.png");
         break;
     case 4:
-        imagetransform->setImage(":/images/gamecode/map/PushTool.png");
+        imagetransform->setImage(":/images/images/map/PushTool.png");
         break;
     }
 }

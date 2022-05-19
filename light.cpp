@@ -44,7 +44,7 @@ void Light::onFirstUpdate()
         {
             if (gameObject->getComponent<PlayerController>() == nullptr)
                 hitable->beHit();
-            else if (abs(trans->pos().x() - imagetransform->pos().x()) < qreal(40)
+            else if (abs(trans->pos().x() - imagetransform->pos().x()) < qreal(30)
                      && trans->pos().y() - imagetransform->pos().y() < qreal(25)
                      && trans->pos().y() - imagetransform->pos().y() > qreal(-10))
             {
@@ -67,10 +67,10 @@ void Light::onFirstUpdate()
         switch(type)
         {
         case 1:
-            imagetransform->setImage(":/images/gamecode/map/horizontallight.png");
+            imagetransform->setImage(":/images/images/map/horizontallight.png");
             break;
         case 2:
-            imagetransform->setImage(":/images/gamecode/map/verticallight.png");
+            imagetransform->setImage(":/images/images/map/verticallight.png");
             break;
         }
         //attachGameObject(this->getParentGameObject());
@@ -93,7 +93,8 @@ void Light::onUpdate(float deltatime)
         auto gameObject = transform->getParentGameObject();
         auto hitable = gameObject->getComponent<Hitable>();
         if (hitable == nullptr
-            && (gameObject->getComponent<Wall>() != nullptr && abs(transform->pos().x() - imagetransform->pos().x()) < qreal(30)
+            && (gameObject->getComponent<Wall>() != nullptr
+            && abs(transform->pos().x() - imagetransform->pos().x()) < qreal(30)
             || (gameObject != parentBomb->getParentGameObject() && gameObject->getComponent<Bomb>() != nullptr)))
         {
             hitwall = true;
@@ -102,7 +103,7 @@ void Light::onUpdate(float deltatime)
         if (hitable != nullptr)
         {
             if (gameObject->getComponent<PlayerController>() != nullptr
-                    && abs(transform->pos().x() - imagetransform->pos().x()) < qreal(40)
+                    && abs(transform->pos().x() - imagetransform->pos().x()) < qreal(30)
                     && transform->pos().y() - imagetransform->pos().y() < qreal(25)
                     && transform->pos().y() - imagetransform->pos().y() > qreal(-10))
             {
@@ -138,7 +139,7 @@ void Light::onUpdate(float deltatime)
         light->addComponent(component);
         ImageTransformBuilder()
                 .setPos(pos)
-                .setImage(":/images/gamecode/map/transparentlight.png")
+                .setImage(":/images/images/map/transparentlight.png")
                 .setAlignment(Qt::AlignCenter)
                 .addToGameObject(light);
         attachGameObject(light);

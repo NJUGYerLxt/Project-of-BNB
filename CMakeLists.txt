@@ -20,31 +20,26 @@ set(PROJECT_SOURCES
         mainwindow.h
         mainwindow.ui
 
-        framework/gamescene.h framework/gamescene.cpp
-        framework/gameobject.h framework/gameobject.cpp
-        framework/component.h framework/component.cpp
-        framework/transform.h framework/transform.cpp
-        framework/imagetransform.h framework/imagetransform.cpp
-        framework/transformbuilder.h framework/transformbuilder.cpp
+        gamescene.h gamescene.cpp
+        gameobject.h gameobject.cpp
+        component.h component.cpp
+        transform.h transform.cpp
+        imagetransform.h imagetransform.cpp
+        transformbuilder.h transformbuilder.cpp
 
-        ammo.h ammo.cpp
-        shooter.h shooter.cpp
-        summondummy.h summondummy.cpp
-        gamecode/physics.h gamecode/physics.cpp
-        usercontroller.h usercontroller.cpp
-
-        gamecode/gamemap.h gamecode/gamemap.cpp
-        gamecode/playercontroller.h gamecode/playercontroller.cpp
-        gamecode/health.h gamecode/health.cpp
-        gamecode/hitable.h gamecode/hitable.cpp
-        gamecode/AIcontroller.h gamecode/AIcontroller.cpp
-        gamecode/bomb.h gamecode/bomb.cpp
-        gamecode/wall.h gamecode/wall.cpp
-        gamecode/light.h gamecode/light.cpp
-        gamecode/tool.h gamecode/tool.cpp
-        gamecode/button.h gamecode/button.cpp
-        gamecode/stopbutton.h gamecode/stopbutton.cpp
-        gamecode/scoreboard.h gamecode/scoreboard.cpp
+        gamemap.h gamemap.cpp
+        playercontroller.h playercontroller.cpp
+        physics.h physics.cpp
+        health.h health.cpp
+        hitable.h hitable.cpp
+        AIcontroller.h AIcontroller.cpp
+        bomb.h bomb.cpp
+        wall.h wall.cpp
+        light.h light.cpp
+        tool.h tool.cpp
+        button.h button.cpp
+        stopbutton.h stopbutton.cpp
+        scoreboard.h scoreboard.cpp
         image.qrc
 )
 
