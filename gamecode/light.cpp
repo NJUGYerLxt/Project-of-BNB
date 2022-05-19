@@ -45,7 +45,7 @@ void Light::onFirstUpdate()
             if (gameObject->getComponent<PlayerController>() == nullptr)
                 hitable->beHit();
             else if (abs(trans->pos().x() - imagetransform->pos().x()) < qreal(40)
-                     && trans->pos().y() - imagetransform->pos().y() < qreal(35)
+                     && trans->pos().y() - imagetransform->pos().y() < qreal(25)
                      && trans->pos().y() - imagetransform->pos().y() > qreal(-10))
             {
                 hitable->beHit();
@@ -102,8 +102,8 @@ void Light::onUpdate(float deltatime)
         if (hitable != nullptr)
         {
             if (gameObject->getComponent<PlayerController>() != nullptr
-                    && abs(transform->pos().x() - imagetransform->pos().x()) < qreal(35)
-                    && transform->pos().y() - imagetransform->pos().y() < qreal(35)
+                    && abs(transform->pos().x() - imagetransform->pos().x()) < qreal(40)
+                    && transform->pos().y() - imagetransform->pos().y() < qreal(25)
                     && transform->pos().y() - imagetransform->pos().y() > qreal(-10))
             {
                 hitable->beHit();

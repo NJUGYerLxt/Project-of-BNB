@@ -23,7 +23,10 @@ void Health::beHit() {
 void Health::onUpdate(float deltatime)
 {
     if (health > 0)
+    {
+        presenttime += deltatime;
         return;
+    }
     presenttime -= deltatime;
     if (presenttime <= 0 && this->gameObject->getComponent<PlayerController>() != nullptr)
         detachGameObject(this->gameObject);
