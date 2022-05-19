@@ -23,6 +23,7 @@ public:
     void onAttach() override;
     void onUpdate(float deltaTime) override;
     void Death();
+    bool getdeath();
 
 protected:
     ImageTransform *imagetransform = nullptr;

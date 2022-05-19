@@ -21,9 +21,7 @@ bool Bomb::getDestoried() {return Destoried;}
 void Bomb::onAttach()
 {
     imagetransform = this->gameObject->getComponent<ImageTransform>();
-    //detector = this->gameObject->getComponent<ImageTransform>();
     assert(imagetransform != nullptr);
-    //detector->setImage(":/images/gamecode/map/transparentbomb.png");
     this->collider = imagetransform;
 }
 
@@ -47,6 +45,11 @@ void Bomb::explode(float deltatime)
         {
             gameObject->removeComponent(gameObject->getComponent<Wall>());
             gameObject->removeComponent(hitable);
+        }
+        if (gameObject->getComponent<PlayerController>() != nullptr
+            && !gameObject->getComponent<PlayerController>()->getdeath())
+        {
+            master->ModifyScore(hitplayer);
         }
     }
     imagetransform->setImage(":/pictures/images/map/bombing.png");

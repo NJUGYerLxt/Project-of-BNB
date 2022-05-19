@@ -23,6 +23,8 @@ int PlayerController::getScore() {return score;}
 
 void PlayerController::Death() {dead = true;}
 
+bool PlayerController::getdeath() {return dead;}
+
 void PlayerController::onAttach()
 {
     physics = this->gameObject->getComponent<Physics>();

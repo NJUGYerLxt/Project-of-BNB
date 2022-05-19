@@ -57,17 +57,6 @@ Gamemap::Gamemap(GameScene *gameScene)
                     .addToGameObject(block[i][j]);
                 break;
             case 1:
-                /*generator = rand() % 4 + 1;
-                if (generator <= 4)
-                {
-                    auto tool = new GameObject();
-                    ImageTransformBuilder()
-                        .setPos(QPointF(40*j+20, 40*i+20))
-                        .setAlignment(Qt::AlignCenter)
-                        .addToGameObject(tool);
-                    tool->addComponent(new Tool(generator));
-                    gameScene->attachGameObject(tool);
-                }*/
                 ImageTransformBuilder()
                     .setPos(QPointF(40*j+20, 40*i+20))
                     .setImage(":/pictures/images/map/softwall.png")

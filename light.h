@@ -23,6 +23,7 @@ public:
 
 protected:
     ImageTransform *imagetransform = nullptr;
+    PlayerController *player = nullptr;
     Bomb *parentBomb = nullptr;
     QGraphicsItem *collider = nullptr;
     int type;

@@ -33,7 +33,6 @@ protected:
     void explode(float deltatime);
     QGraphicsItem *collider;
     ImageTransform *imagetransform = nullptr;
-    //ImageTransform *detector = nullptr;
     PlayerController *master;
     int range = 1;
     QPointF velocity = QPointF(0, 0);

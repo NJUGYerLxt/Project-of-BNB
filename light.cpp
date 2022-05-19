@@ -46,7 +46,8 @@ void Light::onFirstUpdate()
                 hitable->beHit();
             else if (abs(trans->pos().x() - imagetransform->pos().x()) < qreal(30)
                      && trans->pos().y() - imagetransform->pos().y() < qreal(25)
-                     && trans->pos().y() - imagetransform->pos().y() > qreal(-10))
+                     && trans->pos().y() - imagetransform->pos().y() > qreal(-10)
+                     && !gameObject->getComponent<PlayerController>()->getdeath())
             {
                 hitable->beHit();
                 auto master = parentBomb->getMaster();
@@ -105,12 +106,15 @@ void Light::onUpdate(float deltatime)
             if (gameObject->getComponent<PlayerController>() != nullptr
                     && abs(transform->pos().x() - imagetransform->pos().x()) < qreal(30)
                     && transform->pos().y() - imagetransform->pos().y() < qreal(25)
-                    && transform->pos().y() - imagetransform->pos().y() > qreal(-10))
+                    && transform->pos().y() - imagetransform->pos().y() > qreal(-10)
+                    && !gameObject->getComponent<PlayerController>()->getdeath())
             {
                 hitable->beHit();
                 auto master = parentBomb->getMaster();
                 if (master != nullptr && gameObject->getComponent<PlayerController>() != master)
+                {
                     master->ModifyScore(hitplayer);
+                }
             }
         }
     }
