@@ -11,6 +11,8 @@ class Tool: public Component
 {
 public:
     Tool(int type);
+    QPointF getpos();
+    int getType();
 
     void onAttach() override;
     void onFirstUpdate() override;

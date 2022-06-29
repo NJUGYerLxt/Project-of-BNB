@@ -3,6 +3,10 @@
 
 Tool::Tool(int type) {this->type = type; assert(type <= 4);}
 
+QPointF Tool::getpos() {return this->imagetransform->pos();}
+
+int Tool::getType() {return this->type;}
+
 void Tool::onAttach()
 {
      imagetransform = this->gameObject->getComponent<ImageTransform>();

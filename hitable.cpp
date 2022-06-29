@@ -1,10 +1,13 @@
 #include "hitable.h"
 #include "wall.h"
 #include "tool.h"
+#include "gamemap.h"
 
 Hitable::Hitable() {}
 
 void Hitable::setGameScene(GameScene *gameScene) {/*this->gameScene = gameScene;*/}
+
+//void Hitable::ConnectGamemap(Gamemap *gamemap) {this->gamemap = gamemap;}
 
 void Hitable::beHit()
 {

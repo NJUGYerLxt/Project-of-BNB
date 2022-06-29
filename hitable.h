@@ -13,12 +13,14 @@ public:
     Hitable();
     virtual void beHit();
     void setGameScene(GameScene *gameScene);
+    //void ConnectGamemap(Gamemap *gamemap);
     //void onAttach() override;
 
 protected:
     //bool generatetool = false;
     //int generate;
     GameScene *gameScene;
+    //Gamemap *gamemap;
 };
 
 #endif  // HITABLE_H_

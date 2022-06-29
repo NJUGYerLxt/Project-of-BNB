@@ -18,6 +18,10 @@ int Bomb::getRange() {return range;}
 
 bool Bomb::getDestoried() {return Destoried;}
 
+QPointF Bomb::getpos() {return this->imagetransform->pos();}
+
+float Bomb::getCountdown() {return countdown;}
+
 void Bomb::onAttach()
 {
     imagetransform = this->gameObject->getComponent<ImageTransform>();
@@ -47,8 +51,10 @@ void Bomb::explode(float deltatime)
             gameObject->removeComponent(hitable);
         }
         if (gameObject->getComponent<PlayerController>() != nullptr
-            && !gameObject->getComponent<PlayerController>()->getdeath())
+            && !gameObject->getComponent<PlayerController>()->getdeath()
+            && gameObject->getComponent<PlayerController>() != this->master)
         {
+            assert(master != nullptr);
             master->ModifyScore(hitplayer);
         }
     }
@@ -62,7 +68,7 @@ void Bomb::explode(float deltatime)
     if (Destoried || GenerateLight)  return;
 
     QPointF pos;
-    //宸﹀厜鏉?
+    //左光束
     pos = QPointF(imagetransform->pos().x()-40, imagetransform->pos().y());
     auto lightleft = new GameObject();
     auto componentleft = new Light(this);
@@ -75,7 +81,7 @@ void Bomb::explode(float deltatime)
         .setAlignment(Qt::AlignCenter)
         .addToGameObject(lightleft);
     attachGameObject(lightleft);
-    //鍙冲厜鏉?
+    //右光束
     pos = QPointF(imagetransform->pos().x()+40, imagetransform->pos().y());
     auto lightright = new GameObject();
     auto componentright = new Light(this);
@@ -88,7 +94,7 @@ void Bomb::explode(float deltatime)
         .setAlignment(Qt::AlignCenter)
         .addToGameObject(lightright);
     attachGameObject(lightright);
-    //涓婂厜鏉?
+    //上光束
     pos = QPointF(imagetransform->pos().x(), imagetransform->pos().y()-40);
     auto lightup = new GameObject();
     auto componentup = new Light(this);
@@ -101,7 +107,7 @@ void Bomb::explode(float deltatime)
         .setAlignment(Qt::AlignCenter)
         .addToGameObject(lightup);
     attachGameObject(lightup);
-    //涓嬪厜鏉?
+    //下光束
     pos = QPointF(imagetransform->pos().x(), imagetransform->pos().y()+40);
     auto lightdown = new GameObject();
     auto componentdown = new Light(this);
@@ -151,7 +157,8 @@ void Bomb::onUpdate(float deltatime)
             auto gameObject = transform->getParentGameObject();
             auto wall = gameObject->getComponent<Wall>();
             auto player = gameObject->getComponent<PlayerController>();
-            if (wall != nullptr || (player != nullptr && player != master))
+            auto bomb = gameObject->getComponent<Bomb>();
+            if (wall != nullptr || (player != nullptr && player != master) || bomb != nullptr)
             {
                 velocity = QPointF(0, 0);
                 pushable = false;
@@ -184,3 +191,5 @@ void Bomb::onUpdate(float deltatime)
         explode(deltatime);
     }
 }
+
+QGraphicsItem *Bomb::getcollider() {return collider;}

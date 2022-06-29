@@ -43,7 +43,7 @@ void Button::onClick(QGraphicsSceneMouseEvent *ev)
             exit->detachGameObject(exit->gameObject);
         if (StartingPage != nullptr)
             detachGameObject(StartingPage);
-        new Gamemap(this->gameScene);
+        auto gamemap = new Gamemap(this->gameScene);
         auto player1 = new GameObject();
         auto physics1 = new Physics();
         auto controller1 = new PlayerController(1);
@@ -52,6 +52,8 @@ void Button::onClick(QGraphicsSceneMouseEvent *ev)
             .setImage(":/pictures/images/player/downward.png")
             .setAlignment(Qt::AlignCenter)
             .addToGameObject(player1);
+        controller1->ConnectGamemap(gamemap);
+        controller1->ConnectGameScene(this->gameScene);
         player1->addComponent(controller1);
         player1->addComponent(physics1);
         player1->addComponent(new Health(1));
@@ -65,6 +67,8 @@ void Button::onClick(QGraphicsSceneMouseEvent *ev)
             .setImage(":/pictures/images/player/2-up.png")
             .setAlignment(Qt::AlignCenter)
             .addToGameObject(player2);
+        controller2->ConnectGamemap(gamemap);
+        controller2->ConnectGameScene(this->gameScene);
         player2->addComponent(controller2);
         player2->addComponent(physics2);
         player2->addComponent(new Health(1));
@@ -78,6 +82,8 @@ void Button::onClick(QGraphicsSceneMouseEvent *ev)
             .setImage(":/pictures/images/player/3-down.png")
             .setAlignment(Qt::AlignCenter)
             .addToGameObject(player3);
+        controller3->ConnectGamemap(gamemap);
+        controller3->ConnectGameScene(this->gameScene);
         player3->addComponent(controller3);
         player3->addComponent(physics3);
         player3->addComponent(new Health(1));
@@ -91,10 +97,15 @@ void Button::onClick(QGraphicsSceneMouseEvent *ev)
             .setImage(":/pictures/images/player/4-up.png")
             .setAlignment(Qt::AlignCenter)
             .addToGameObject(player4);
+        controller4->ConnectGamemap(gamemap);
+        controller4->ConnectGameScene(this->gameScene);
         player4->addComponent(controller4);
         player4->addComponent(physics4);
         player4->addComponent(new Health(1));
         gameScene->attachGameObject(player4);
+
+        controller3->ConnectPlayer(controller1, controller2, controller4);
+        controller4->ConnectPlayer(controller1, controller2, controller3);
 
         auto stopbutton = new GameObject();
         ImageTransformBuilder()

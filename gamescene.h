@@ -15,6 +15,7 @@ public:
     ~GameScene();
     GameScene(const GameScene &) = delete;
     GameScene &operator=(const GameScene &) = delete;
+    QList<GameObject *> getgameObjects();
 
     // Game object management API
 public:

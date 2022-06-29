@@ -3,6 +3,12 @@
 
 PlayerController::PlayerController(int type) {this->type = type;}
 
+QPointF PlayerController::getpos() {return this->imagetransform->pos();}
+
+void PlayerController::ConnectGameScene(GameScene *gamescene) {this->gamescene = gamescene;}
+
+void PlayerController::ConnectGamemap(Gamemap *gamemap) {this->gamemap = gamemap;}
+
 void PlayerController::ModifyCurBombNum()
 {
     assert(curBombnum > 0);
@@ -13,7 +19,13 @@ void PlayerController::ModifyMostBombNum() {MostBombnum++;}
 
 void PlayerController::ModifyBombRange() {BombRange++;}
 
-void PlayerController::ModifyVelocity() {velocity += 40;}
+void PlayerController::ModifyVelocity()
+{
+    if (velocity <= 240)
+        velocity += 40;
+    else
+        velocity += 20;
+}
 
 void PlayerController::ModifyPushBomb() {pushbomb = true;}
 
@@ -149,10 +161,8 @@ void PlayerController::onUpdate(float deltatime)
             if (curBombnum >= MostBombnum)
                 return;
             //curinterval = interval;
-            curBombnum++;
-            auto bomb = new GameObject();
-            auto classification = new Bomb();
             QPointF pos;
+            QPointF loc;
             for (int i = 0; i < 15; i++)
             {
                 for (int j = 0; j < 20; j++)
@@ -163,10 +173,52 @@ void PlayerController::onUpdate(float deltatime)
                         this->imagetransform->pos().y() - (i * 40 + 20) < 20)
                     {
                         pos = QPointF(40 * j + 20, 40 * i + 20);
+                        //loc = QPointF(i, j);
                         break;
                     }
                 }
             }
+            /*auto attempt = new GameObject();
+            auto type = new Bomb();
+            ImageTransformBuilder()
+                .setPos(pos)
+                .setImage(":/pictures/images/map/transparentbomb.png")
+                .setAlignment(Qt::AlignCenter)
+                .addToGameObject(attempt);
+            attempt->addComponent(type);
+            attachGameObject(attempt);
+            for (auto item : type->getcollider()->collidingItems())
+            {
+                while (item->parentItem() != nullptr)
+                    item = item->parentItem();
+                auto transform = dynamic_cast<Transform *>(item);
+                if (transform != nullptr)
+                {
+                    auto gameobject = transform->getParentGameObject();
+                    auto bomb = gameobject->getComponent<Bomb>();
+                    if (bomb != nullptr)
+                    {
+                        if (attempt != nullptr)
+                            destory(attempt);
+                        return;
+                    }
+                }
+            }
+            if (attempt != nullptr)
+                destory(attempt);*/
+            auto gameObjects = this->gamescene->getgameObjects();
+            for (int i = 0; i < gameObjects.size(); i++)
+            {
+                if (gameObjects[i]->getComponent<Bomb>() != nullptr)
+                {
+                    auto curbomb = gameObjects[i]->getComponent<Bomb>();
+                    if (curbomb->getpos() == pos)
+                        return;
+                }
+            }
+            curBombnum++;
+            auto bomb = new GameObject();
+            auto classification = new Bomb();
             ImageTransformBuilder()
                 .setPos(pos)
                 .setImage(":/pictures/images/map/bomb.png")
@@ -178,6 +230,7 @@ void PlayerController::onUpdate(float deltatime)
                 classification->setPushable();
             bomb->addComponent(classification);
             attachGameObject(bomb);
+            //gamemap->InsertBomb(loc, BombRange, deltatime);
         }
         break;
     case 2:
@@ -289,10 +342,8 @@ void PlayerController::onUpdate(float deltatime)
             if (curBombnum >= MostBombnum)
                 return;
             //curinterval = interval;
-            curBombnum++;
-            auto bomb = new GameObject();
-            auto classification = new Bomb();
             QPointF pos;
+            QPointF loc;
             for (int i = 0; i < 15; i++)
             {
                 for (int j = 0; j < 20; j++)
@@ -303,10 +354,24 @@ void PlayerController::onUpdate(float deltatime)
                         this->imagetransform->pos().y() - (i * 40 + 20) < 20)
                     {
                         pos = QPointF(40 * j + 20, 40 * i + 20);
+                        //loc = QPointF(i, j);
                         break;
                     }
                 }
             }
+            auto gameObjects = this->gamescene->getgameObjects();
+            for (int i = 0; i < gameObjects.size(); i++)
+            {
+                if (gameObjects[i]->getComponent<Bomb>() != nullptr)
+                {
+                    auto curbomb = gameObjects[i]->getComponent<Bomb>();
+                    if (curbomb->getpos() == pos)
+                        return;
+                }
+            }
+            curBombnum++;
+            auto bomb = new GameObject();
+            auto classification = new Bomb();
             ImageTransformBuilder()
                 .setPos(pos)
                 .setImage(":/pictures/images/map/bomb.png")
@@ -318,6 +383,7 @@ void PlayerController::onUpdate(float deltatime)
                 classification->setPushable();
             bomb->addComponent(classification);
             attachGameObject(bomb);
+            //gamemap->InsertBomb(loc, BombRange, deltatime);
         }
         break;
     }

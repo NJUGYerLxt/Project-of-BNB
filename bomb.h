@@ -18,10 +18,13 @@ public:
     void setVelocity(QPointF velocity);
     void setPushable();
     PlayerController *getMaster();
+    QGraphicsItem *getcollider();
     void onAttach() override;
     void onUpdate(float deltatime) override;
+    QPointF getpos();
     bool getDestoried();
     int getRange();
+    float getCountdown();
 
 protected:
     const float bombtime = 2.5;

@@ -13,7 +13,7 @@ public:
 
 protected:
     int health;
-    int presenttime = 20;
+    int presenttime = 100;
     GameScene *gameScene;
 };
 

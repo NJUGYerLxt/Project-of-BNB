@@ -37,6 +37,7 @@ void Light::onFirstUpdate()
             || (gameObject != parentBomb->getParentGameObject() && gameObject->getComponent<Bomb>() != nullptr)))
         {
             hitwall = true;
+            detachGameObject(this->getParentGameObject());
             continue;
         }
 
@@ -46,8 +47,8 @@ void Light::onFirstUpdate()
                 hitable->beHit();
             else if (abs(trans->pos().x() - imagetransform->pos().x()) < qreal(30)
                      && trans->pos().y() - imagetransform->pos().y() < qreal(25)
-                     && trans->pos().y() - imagetransform->pos().y() > qreal(-10)
-                     && !gameObject->getComponent<PlayerController>()->getdeath())
+                     && trans->pos().y() - imagetransform->pos().y() > qreal(-10))
+                     //&& !gameObject->getComponent<PlayerController>()->getdeath())
             {
                 hitable->beHit();
                 auto master = parentBomb->getMaster();

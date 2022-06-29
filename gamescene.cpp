@@ -22,6 +22,8 @@ GameScene::~GameScene() {
   }
 }
 
+QList<GameObject *> GameScene::getgameObjects() {return gameObjects;}
+
 void GameScene::attachGameObject(GameObject *gameObject) {
   gameObjectsToAttach.emplace_back(gameObject); //相当于更高效的 push_back
 }

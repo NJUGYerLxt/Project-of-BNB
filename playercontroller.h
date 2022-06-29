@@ -7,11 +7,15 @@
 #include "transform.h"
 #include "physics.h"
 #include "wall.h"
+#include "gamemap.h"
 
 class PlayerController: public Component
 {
 public:
     PlayerController(int type);
+    QPointF getpos();
+    void ConnectGameScene(GameScene *gamescene);
+    void ConnectGamemap(Gamemap *gamemap);
     void ModifyCurBombNum();
     void ModifyMostBombNum();
     void ModifyVelocity();
@@ -26,9 +30,12 @@ public:
     bool getdeath();
 
 protected:
+    GameScene *gamescene = nullptr;
+    Gamemap *gamemap = nullptr;
     ImageTransform *imagetransform = nullptr;
     QGraphicsItem *collider = nullptr;
     Physics *physics;
+    QPointF getLoc(QPointF pos);
     int MostBombnum = 1;
     int curBombnum = 0;
     int velocity = 160;
