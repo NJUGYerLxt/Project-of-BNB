@@ -11,39 +11,39 @@ void PlayerController::ConnectGamemap(Gamemap *gamemap) {this->gamemap = gamemap
 
 void PlayerController::ModifyCurBombNum()
 {
-    assert(curBombnum > 0);
-    curBombnum--;
+    assert(this->curBombnum > 0);
+    this->curBombnum--;
 }
 
-void PlayerController::ModifyMostBombNum() {MostBombnum++;}
+void PlayerController::ModifyMostBombNum() {this->MostBombnum++;}
 
-void PlayerController::ModifyBombRange() {BombRange++;}
+void PlayerController::ModifyBombRange() {this->BombRange++;}
 
 void PlayerController::ModifyVelocity()
 {
-    if (velocity <= 240)
-        velocity += 40;
+    if (this->velocity <= 240)
+        this->velocity += 40;
     else
-        velocity += 20;
+        this->velocity += 20;
 }
 
-void PlayerController::ModifyPushBomb() {pushbomb = true;}
+void PlayerController::ModifyPushBomb() {this->pushbomb = true;}
 
 void PlayerController::ModifyScore(int score) {this->score += score;}
 
-int PlayerController::getScore() {return score;}
+int PlayerController::getScore() {return this->score;}
 
-void PlayerController::Death() {dead = true;}
+void PlayerController::Death() {this->dead = true;}
 
-bool PlayerController::getdeath() {return dead;}
+bool PlayerController::getdeath() {return this->dead;}
 
 void PlayerController::onAttach()
 {
-    physics = this->gameObject->getComponent<Physics>();
-    imagetransform = this->gameObject->getComponent<ImageTransform>();
+    this->physics = this->gameObject->getComponent<Physics>();
+    this->imagetransform = this->gameObject->getComponent<ImageTransform>();
     assert(physics != nullptr);   
     assert(imagetransform != nullptr);
-    this->collider = imagetransform;
+    this->collider = this->imagetransform;
 }
 
 void PlayerController::onUpdate(float deltatime)

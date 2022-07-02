@@ -76,7 +76,7 @@ void Button::onClick(QGraphicsSceneMouseEvent *ev)
 
         auto player3 = new GameObject();
         auto physics3 = new Physics();
-        auto controller3 = new AIController(1);
+        auto controller3 = new AIController(3);
         ImageTransformBuilder()
             .setPos(QPointF(740, 55))
             .setImage(":/pictures/images/player/3-down.png")
@@ -91,7 +91,7 @@ void Button::onClick(QGraphicsSceneMouseEvent *ev)
 
         auto player4 = new GameObject();
         auto physics4 = new Physics();
-        auto controller4 = new AIController(2);
+        auto controller4 = new AIController(4);
         ImageTransformBuilder()
             .setPos(QPointF(60, 535))
             .setImage(":/pictures/images/player/4-up.png")

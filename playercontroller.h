@@ -36,16 +36,16 @@ protected:
     QGraphicsItem *collider = nullptr;
     Physics *physics;
     QPointF getLoc(QPointF pos);
+    int velocity = 160;
     int MostBombnum = 1;
     int curBombnum = 0;
-    int velocity = 160;
     int BombRange = 1;
     int score = 0;
     bool dead = false;
     bool pushbomb = false;
+    int type;
 
 private:
-    int type;
     const int interval = 1;
     int curinterval = interval;
 };
