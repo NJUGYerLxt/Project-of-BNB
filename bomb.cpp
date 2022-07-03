@@ -22,6 +22,8 @@ QPointF Bomb::getpos() {return this->imagetransform->pos();}
 
 float Bomb::getCountdown() {return countdown;}
 
+bool Bomb::getPushable() {return this->pushable;}
+
 void Bomb::onAttach()
 {
     imagetransform = this->gameObject->getComponent<ImageTransform>();
@@ -142,12 +144,13 @@ void Bomb::onUpdate(float deltatime)
         }
         condition = 1 - condition;
     }
-    if (!pushable)
-        velocity = QPointF(0, 0);
+    //if (!pushable)
+        //velocity = QPointF(0, 0);
     imagetransform->setPos(imagetransform->pos() + velocity * deltatime);
     if (velocity != QPointF(0, 0))
     {
         countdown = bombtime;
+        pushable = false;
         for (auto item : this->collider->collidingItems())
         {
             while (item->parentItem() != nullptr)
@@ -161,7 +164,6 @@ void Bomb::onUpdate(float deltatime)
             if (wall != nullptr || (player != nullptr && player != master) || bomb != nullptr)
             {
                 velocity = QPointF(0, 0);
-                pushable = false;
                 QPointF pos;
                 for (int i = 0; i < 15; i++)
                 {

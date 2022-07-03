@@ -20,6 +20,7 @@ public:
     bool gethitwall();
     void setCurRange(int range);
     void setDirection(int direction);
+    QPointF getpos();
 
 protected:
     ImageTransform *imagetransform = nullptr;

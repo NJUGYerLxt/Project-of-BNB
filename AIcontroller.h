@@ -26,20 +26,17 @@ protected:
     GameScene *gamescene = nullptr;
     Gamemap *gamemap = nullptr;
     Health *health;
-    /*int velocity = 160;
-    int MostBombnum = 1;
-    int curBombnum = 0;
-    int BombRange = 1;
-    bool dead = false;
-    bool pushbomb = false;
-    int score = 0;
-    int type;*/
+
+//    void changevelocity(int v);
+//    void changepushbomb();
 
     void checkcollide();
+    QPointF CalPlayerLoc(QPointF pos);
     void observe();
     void moveunit(int dir); //1上 2下 3左 4右
     bool moveable(float deltatime);
-    const float moveunittime = 0.25;
+    const float moveunittime = 0.5;
+    const float safecountdown = 0.5;
     float curmovetime = moveunittime;
     int safe(int x, int y, int step); //0潜在不安全  1安全  -1不可走 2必死
     int pic[15][20]; //0地砖 1软墙 2硬墙 3玩家 4炸弹 5道具
@@ -50,14 +47,21 @@ protected:
         QPointF loc;
         int range;
         float countdown;
+        int master;
+        bool pushable;
     };
     struct tool
     {
         QPointF loc;
         int type;
     };
+    struct light
+    {
+        QPointF loc;
+    };
     QList<bomb> bomblist;
-    QList<tool> toollist;    
+    QList<tool> toollist;
+    QList<light> lightlist;
     void bfs(int x, int y, bool risk);
     int steps[15][20];
     QPointF pre[15][20];
@@ -66,9 +70,12 @@ protected:
     void randomwalk(float deltatime);
     bool move(int startx, int starty, int endx, int endy, float deltatime);
     bool escape(int x, int y, float deltatime);
-    bool picktools(int x, int y, float deltatime);
-    void setbomb(int x, int y);
+    bool picktools(int x, int y, float deltatime, bool attack);
+    bool setbomb(int x, int y);
     bool bombsoftwall(int x, int y, float deltatime);
+    bool closeattack(int x, int y);
+    int farattack(int x, int y); //0不可行 1向上 2向下 3向左 4向右
+    bool PushBomb(int x, int y, bool attack);
 };
 
 #endif // AICONTROLLER_H

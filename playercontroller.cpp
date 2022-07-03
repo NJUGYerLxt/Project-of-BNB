@@ -3,6 +3,8 @@
 
 PlayerController::PlayerController(int type) {this->type = type;}
 
+int PlayerController::gettype() {return this->type;}
+
 QPointF PlayerController::getpos() {return this->imagetransform->pos();}
 
 void PlayerController::ConnectGameScene(GameScene *gamescene) {this->gamescene = gamescene;}
@@ -21,10 +23,12 @@ void PlayerController::ModifyBombRange() {this->BombRange++;}
 
 void PlayerController::ModifyVelocity()
 {
-    if (this->velocity <= 240)
+    if (this->velocity <= 200)
         this->velocity += 40;
-    else
+    else if (this->velocity <= 240)
         this->velocity += 20;
+    else
+        this->velocity += 10;
 }
 
 void PlayerController::ModifyPushBomb() {this->pushbomb = true;}
@@ -71,7 +75,7 @@ void PlayerController::onUpdate(float deltatime)
                     auto wall = object->getComponent<Wall>();
                     auto bomb = object->getComponent<Bomb>();
                     if (wall == nullptr && bomb == nullptr)  continue;
-                    if (bomb != nullptr && vx > 0 && pushbomb && bomb->getMaster() == this)
+                    if (bomb != nullptr && vx > 0 && pushbomb && bomb->getMaster() == this && bomb->getPushable())
                     {
                         bomb->setVelocity(QPointF(240, 0));
                     }
@@ -97,7 +101,7 @@ void PlayerController::onUpdate(float deltatime)
                     auto wall = object->getComponent<Wall>();
                     auto bomb = object->getComponent<Bomb>();
                     if (wall == nullptr && bomb == nullptr)  continue;
-                    if (bomb != nullptr && vx < 0 && pushbomb && bomb->getMaster() == this)
+                    if (bomb != nullptr && vx < 0 && pushbomb && bomb->getMaster() == this && bomb->getPushable())
                     {
                         bomb->setVelocity(QPointF(-240, 0));
                     }
@@ -122,7 +126,7 @@ void PlayerController::onUpdate(float deltatime)
                     auto wall = object->getComponent<Wall>();
                     auto bomb = object->getComponent<Bomb>();
                     if (wall == nullptr && bomb == nullptr)  continue;
-                    if (bomb != nullptr && vy < 0 && pushbomb && bomb->getMaster() == this)
+                    if (bomb != nullptr && vy < 0 && pushbomb && bomb->getMaster() == this && bomb->getPushable())
                     {
                         bomb->setVelocity(QPointF(0, -240));
                     }
@@ -147,7 +151,7 @@ void PlayerController::onUpdate(float deltatime)
                     auto wall = object->getComponent<Wall>();
                     auto bomb = object->getComponent<Bomb>();
                     if (wall == nullptr && bomb == nullptr)  continue;
-                    if (bomb != nullptr && vy > 0 && pushbomb && bomb->getMaster() == this)
+                    if (bomb != nullptr && vy > 0 && pushbomb && bomb->getMaster() == this && bomb->getPushable())
                     {
                         bomb->setVelocity(QPointF(0, 240));
                     }
@@ -252,7 +256,7 @@ void PlayerController::onUpdate(float deltatime)
                     auto wall = object->getComponent<Wall>();
                     auto bomb = object->getComponent<Bomb>();
                     if (wall == nullptr && bomb == nullptr)  continue;
-                    if (bomb != nullptr && vx > 0 && pushbomb && bomb->getMaster() == this)
+                    if (bomb != nullptr && vx > 0 && pushbomb && bomb->getMaster() == this && bomb->getPushable())
                     {
                         bomb->setVelocity(QPointF(240, 0));
                     }
@@ -278,7 +282,7 @@ void PlayerController::onUpdate(float deltatime)
                     auto wall = object->getComponent<Wall>();
                     auto bomb = object->getComponent<Bomb>();
                     if (wall == nullptr && bomb == nullptr)  continue;
-                    if (bomb != nullptr && vx < 0 && pushbomb && bomb->getMaster() == this)
+                    if (bomb != nullptr && vx < 0 && pushbomb && bomb->getMaster() == this && bomb->getPushable())
                     {
                         bomb->setVelocity(QPointF(-240, 0));
                     }
@@ -303,7 +307,7 @@ void PlayerController::onUpdate(float deltatime)
                     auto wall = object->getComponent<Wall>();
                     auto bomb = object->getComponent<Bomb>();
                     if (wall == nullptr && bomb == nullptr)  continue;
-                    if (bomb != nullptr && vy < 0 && pushbomb && bomb->getMaster() == this)
+                    if (bomb != nullptr && vy < 0 && pushbomb && bomb->getMaster() == this && bomb->getPushable())
                     {
                         bomb->setVelocity(QPointF(0, -240));
                     }
@@ -328,7 +332,7 @@ void PlayerController::onUpdate(float deltatime)
                     auto wall = object->getComponent<Wall>();
                     auto bomb = object->getComponent<Bomb>();
                     if (wall == nullptr && bomb == nullptr)  continue;
-                    if (bomb != nullptr && vy > 0 && pushbomb && bomb->getMaster() == this)
+                    if (bomb != nullptr && vy > 0 && pushbomb && bomb->getMaster() == this && bomb->getPushable())
                     {
                         bomb->setVelocity(QPointF(0, 240));
                     }

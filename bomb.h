@@ -19,6 +19,7 @@ public:
     void setPushable();
     PlayerController *getMaster();
     QGraphicsItem *getcollider();
+    bool getPushable();
     void onAttach() override;
     void onUpdate(float deltatime) override;
     QPointF getpos();

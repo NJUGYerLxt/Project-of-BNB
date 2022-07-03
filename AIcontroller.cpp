@@ -1,8 +1,12 @@
 #include "AIcontroller.h"
 #include "tool.h"
+#include "light.h"
 #include <QStack>
 
 AIController::AIController(int type) : PlayerController(type) {this->type = type;}
+
+//void AIController::changevelocity(int velocity) {this->velocity = velocity;}
+//void AIController::changepushbomb() {this->pushbomb = true;}
 
 void AIController::ConnectPlayer(PlayerController *player1, PlayerController *player2,
                                  PlayerController *player3)
@@ -15,6 +19,28 @@ void AIController::ConnectPlayer(PlayerController *player1, PlayerController *pl
 void AIController::ConnectGameScene(GameScene *gamescene) {this->gamescene = gamescene;}
 
 void AIController::ConnectGamemap(Gamemap *gamemap) {this->gamemap = gamemap;}
+
+QPointF AIController::CalPlayerLoc(QPointF pos)
+{
+    int i, j;
+    bool flag = false;
+    for (i = 0; i < 15; i++)
+    {
+        for (j = 0; j < 20; j++)
+        {
+            int x = j * 40 + 20;
+            int y = i * 40 + 15;
+            if (pos.x() - x >= -20 && pos.x() - x < 20
+                    && pos.y() - y >= -25 && pos.y() - y < 15)
+            {
+                flag = true;
+                break;
+            }
+        }
+        if (flag)  break;
+    }
+    return QPointF(i, j);
+}
 
 void AIController::moveunit(int dir)
 {
@@ -49,7 +75,7 @@ void AIController::moveunit(int dir)
                     auto wall = object->getComponent<Wall>();
                     auto bomb = object->getComponent<Bomb>();
                     if (wall == nullptr && bomb == nullptr)  continue;
-                    if (bomb != nullptr && vy < 0 && pushbomb && bomb->getMaster() == this)
+                    if (bomb != nullptr && vy < 0 && pushbomb && bomb->getMaster() == this && bomb->getPushable())
                     {
                         bomb->setVelocity(QPointF(0, -240));
                     }
@@ -74,7 +100,7 @@ void AIController::moveunit(int dir)
                     auto wall = object->getComponent<Wall>();
                     auto bomb = object->getComponent<Bomb>();
                     if (wall == nullptr && bomb == nullptr)  continue;
-                    if (bomb != nullptr && vy > 0 && pushbomb && bomb->getMaster() == this)
+                    if (bomb != nullptr && vy > 0 && pushbomb && bomb->getMaster() == this && bomb->getPushable())
                     {
                         bomb->setVelocity(QPointF(0, 240));
                     }
@@ -100,7 +126,7 @@ void AIController::moveunit(int dir)
                     auto wall = object->getComponent<Wall>();
                     auto bomb = object->getComponent<Bomb>();
                     if (wall == nullptr && bomb == nullptr)  continue;
-                    if (bomb != nullptr && vx < 0 && pushbomb && bomb->getMaster() == this)
+                    if (bomb != nullptr && vx < 0 && pushbomb && bomb->getMaster() == this && bomb->getPushable())
                     {
                         bomb->setVelocity(QPointF(-240, 0));
                     }
@@ -126,7 +152,7 @@ void AIController::moveunit(int dir)
                     auto wall = object->getComponent<Wall>();
                     auto bomb = object->getComponent<Bomb>();
                     if (wall == nullptr && bomb == nullptr)  continue;
-                    if (bomb != nullptr && vx > 0 && pushbomb && bomb->getMaster() == this)
+                    if (bomb != nullptr && vx > 0 && pushbomb && bomb->getMaster() == this && bomb->getPushable())
                     {
                         bomb->setVelocity(QPointF(240, 0));
                     }
@@ -157,7 +183,7 @@ void AIController::moveunit(int dir)
                     auto wall = object->getComponent<Wall>();
                     auto bomb = object->getComponent<Bomb>();
                     if (wall == nullptr && bomb == nullptr)  continue;
-                    if (bomb != nullptr && vy < 0 && pushbomb && bomb->getMaster() == this)
+                    if (bomb != nullptr && vy < 0 && pushbomb && bomb->getMaster() == this && bomb->getPushable())
                     {
                         bomb->setVelocity(QPointF(0, -240));
                     }
@@ -182,7 +208,7 @@ void AIController::moveunit(int dir)
                     auto wall = object->getComponent<Wall>();
                     auto bomb = object->getComponent<Bomb>();
                     if (wall == nullptr && bomb == nullptr)  continue;
-                    if (bomb != nullptr && vy > 0 && pushbomb && bomb->getMaster() == this)
+                    if (bomb != nullptr && vy > 0 && pushbomb && bomb->getMaster() == this && bomb->getPushable())
                     {
                         bomb->setVelocity(QPointF(0, 240));
                     }
@@ -208,7 +234,7 @@ void AIController::moveunit(int dir)
                     auto wall = object->getComponent<Wall>();
                     auto bomb = object->getComponent<Bomb>();
                     if (wall == nullptr && bomb == nullptr)  continue;
-                    if (bomb != nullptr && vx < 0 && pushbomb && bomb->getMaster() == this)
+                    if (bomb != nullptr && vx < 0 && pushbomb && bomb->getMaster() == this && bomb->getPushable())
                     {
                         bomb->setVelocity(QPointF(-240, 0));
                     }
@@ -234,7 +260,7 @@ void AIController::moveunit(int dir)
                     auto wall = object->getComponent<Wall>();
                     auto bomb = object->getComponent<Bomb>();
                     if (wall == nullptr && bomb == nullptr)  continue;
-                    if (bomb != nullptr && vx > 0 && pushbomb && bomb->getMaster() == this)
+                    if (bomb != nullptr && vx > 0 && pushbomb && bomb->getMaster() == this && bomb->getPushable())
                     {
                         bomb->setVelocity(QPointF(240, 0));
                     }
@@ -355,6 +381,8 @@ bool AIController::moveable(float deltatime)
     if (curmovetime > 0)
         return false;
     QPointF curpos = imagetransform->pos();
+    if (this->physics->getVelocity() == QPointF(0, 0))
+        return true;
     bool flag = false;
     for (int i = 0; i < 15; i++)
     {
@@ -387,38 +415,47 @@ void AIController::observe()
     QList <GameObject *> gameObjects;
     bomblist.clear();
     toollist.clear();
+    lightlist.clear();
     for (i = 0; i < 15; i++)
         for (j = 0; j < 20; j++)
             pic[i][j] = gamemap->getcontent(i, j);
-    pos = player1->getpos();
-    for (i = 0; i < 15; i++)
-        for (j = 0; j < 20; j++)
-            if (pos.x() - (j * 40 + 20) >= -20 && pos.x() - (j * 40 + 20) < 20
+    if (player1 != nullptr && !player1->getdeath())
+    {
+        pos = player1->getpos();
+        for (i = 0; i < 15; i++)
+            for (j = 0; j < 20; j++)
+                if (pos.x() - (j * 40 + 20) >= -20 && pos.x() - (j * 40 + 20) < 20
                     && pos.y() - (i * 40 + 20) >= -20 && pos.y() - (i * 40 + 20) < 20)
-            {
-                pic[i][j] = 3;
-                break;
-            }
+                {
+                    pic[i][j] = 3;
+                    break;
+                }
+    }
+    if (player2 != nullptr && !player2->getdeath())
+    {
+        pos = player2->getpos();
+        for (i = 0; i < 15; i++)
+            for (j = 0; j < 20; j++)
+                if (pos.x() - (j * 40 + 20) >= -20 && pos.x() - (j * 40 + 20) < 20
+                        && pos.y() - (i * 40 + 20) >= -20 && pos.y() - (i * 40 + 20) < 20)
+                {
+                    pic[i][j] = 3;
+                    break;
+                }
+    }
+    if (player3 != nullptr && !player3->getdeath())
+    {
+        pos = player3->getpos();
+        for (i = 0; i < 15; i++)
+            for (j = 0; j < 20; j++)
+                if (pos.x() - (j * 40 + 20) >= -20 && pos.x() - (j * 40 + 20) < 20
+                        && pos.y() - (i * 40 + 20) >= -20 && pos.y() - (i * 40 + 20) < 20)
+                {
+                    pic[i][j] = 3;
+                    break;
+                }
+    }
 
-    pos = player2->getpos();
-    for (i = 0; i < 15; i++)
-        for (j = 0; j < 20; j++)
-            if (pos.x() - (j * 40 + 20) >= -20 && pos.x() - (j * 40 + 20) < 20
-                    && pos.y() - (i * 40 + 20) >= -20 && pos.y() - (i * 40 + 20) < 20)
-            {
-                pic[i][j] = 3;
-                break;
-            }
-
-    pos = player3->getpos();
-    for (i = 0; i < 15; i++)
-        for (j = 0; j < 20; j++)
-            if (pos.x() - (j * 40 + 20) >= -20 && pos.x() - (j * 40 + 20) < 20
-                    && pos.y() - (i * 40 + 20) >= -20 && pos.y() - (i * 40 + 20) < 20)
-            {
-                pic[i][j] = 3;
-                break;
-            }
     gameObjects = gamescene->getgameObjects();
     for (i = 0; i < gameObjects.size(); i++)
     {
@@ -430,6 +467,8 @@ void AIController::observe()
                                   (curbomb->getpos().x() - 20)/40);
             newbomb.range = curbomb->getRange();
             newbomb.countdown = curbomb->getCountdown();
+            newbomb.master = curbomb->getMaster()->gettype();
+            newbomb.pushable = curbomb->getPushable();
             bomblist.append(newbomb);
         }
         else if (gameObjects[i]->getComponent<Tool>() != nullptr)
@@ -441,11 +480,21 @@ void AIController::observe()
             newtool.type = curtool->getType();
             toollist.append(newtool);
         }
+        else if (gameObjects[i]->getComponent<Light>() != nullptr)
+        {
+            light newlight;
+            auto curlight = gameObjects[i]->getComponent<Light>();
+            newlight.loc = QPointF((curlight->getpos().y() - 20)/40,
+                                   (curlight->getpos().x() - 20)/40);
+            lightlist.append(newlight);
+        }
     }
 }
 
 int AIController::safe(int x, int y, int step)
 {
+    if (x <= 0 || x >= 14 || y <= 0 || y >= 19)
+        return -1;
     int xx[5] = {0, 0, 0, 1, -1}; //坐标
     int yy[5] = {0, -1, 1, 0, 0};  //坐标
     int i, j, k, l;
@@ -456,7 +505,12 @@ int AIController::safe(int x, int y, int step)
     for (i = 0; i < bomblist.size(); i++)
     {
         if (bomblist[i].loc.x() == x && bomblist[i].loc.y() == y)
-            return 0;
+        {
+            if (bomblist[i].countdown <= safecountdown)
+                return 2;
+            else
+                return 0;
+        }
         for (j = 0; j <= 4; j++)
         {
             for (k = 1; k <= bomblist[i].range; k++)
@@ -474,11 +528,21 @@ int AIController::safe(int x, int y, int step)
                 int h = bomblist[i].loc.x()+k*yy[j];
                 int l = bomblist[i].loc.y()+k*xx[j];
                 if (bomblist[i].loc.x()+k*yy[j] == x && bomblist[i].loc.y()+k*xx[j] == y)
-                    return 0;
+                {
+                    if (bomblist[i].countdown <= safecountdown)
+                        return 2;
+                    else
+                        return 0;
+                }
                 if (h >= 0 && h < 15 && l >= 0 && l < 20 && (pic[h][l] == 1 || pic[h][l] == 2 || hitbomb))
                     break;
             }
         }
+    }
+    for (i = 0; i < lightlist.size(); i++)
+    {
+        if (lightlist[i].loc.x() == x && lightlist[i].loc.y() == y)
+            return 2;
     }
     return 1;
 }
@@ -505,7 +569,7 @@ void AIController::bfs(int x, int y, bool risk)
             int h = p[front] + yy[i];
             int l = q[front] + xx[i];
             if (h >= 0 && h < 15 && l >= 0 && l < 20 && (pic[h][l] == 0 || pic[h][l] == 3)
-                    && (risk || safe(h, l, step + 1) == 1))
+                    && ((risk && safe(h, l, step + 1) != 2) || safe(h, l, step + 1) == 1))
             {
                 if (steps[h][l] == -1 || step + 1 < steps[h][l])
                 {
@@ -603,22 +667,26 @@ void AIController::moveaway(int x, int y, float deltatime)  //可考虑更改bfs
         }
     }
     assert(closest != QPointF(-1, -1));
-    if (closest.x() > x)
+    if (closest.x() > x && safe(x-1, y, 1) != 2 && safe(x-1, y, 1) != -1)
         moveunit(1);
-    else if (closest.x() < x)
+    else if (closest.x() < x && safe(x+1, y, 1) != 2 && safe(x+1, y, 1) != -1)
         moveunit(2);
-    else if (closest.y() > y)
+    else if (closest.y() > y && safe(x, y-1, 1) != 2 && safe(x, y-1, 1) != -1)
         moveunit(3);
-    else if (closest.y() < y)
+    else if (closest.y() < y && safe(x, y+1, 1) != 2 && safe(x-1, y+1, 1) != -1)
         moveunit(4);
-    else
+    else if (safe(x, y, 0) == 2)
         randomwalk(deltatime);
+    else
+        moveunit(0);
 }
 
-bool AIController::picktools(int x, int y, float deltatime)
+bool AIController::picktools(int x, int y, float deltatime, bool attack)
 {
-    int i, j;
+    int i, j, k;
     int minstep = 15 * 20 + 5;
+    int xx[5] = {0, 0, 0, 1, -1};
+    int yy[5] = {0, -1, 1, 0, 0};
     QPointF destin = QPointF(-1, -1);
     for (i = 0; i < toollist.size(); i++)
     {
@@ -632,6 +700,28 @@ bool AIController::picktools(int x, int y, float deltatime)
     }
     if (destin == QPointF(-1, -1))
         return false;
+    if (attack)
+    {
+        for (i = 0; i < 15; i++)
+        {
+            for (j = 0; j < 20; j++)
+            {
+                if (pic[i][j] == 3)
+                {
+                    for (k = 1; k <= 4; k++)
+                    {
+                        int h = i + yy[k];
+                        int l = j + xx[k];
+                        if (steps[h][l] != -1 && steps[h][l] < minstep)
+                        {
+                            minstep = steps[h][l];
+                            destin = QPointF(h, l);
+                        }
+                    }
+                }
+            }
+        }
+    }
     return move(x, y, destin.x(), destin.y(), deltatime);
 }
 
@@ -655,7 +745,7 @@ bool AIController::bombsoftwall(int x, int y, float deltatime)
                     int l = j + xx[k];
 
                     if (h >= 0 && h < 15 && l >= 0 && l < 20 &&
-                        steps[h][l] != -1 && steps[h][l] < minstep)
+                            steps[h][l] != -1 && steps[h][l] < minstep)
                     {
                         //moveunit(3);
                         minstep = steps[h][l];
@@ -679,11 +769,16 @@ bool AIController::bombsoftwall(int x, int y, float deltatime)
     return false;
 }
 
-void AIController::setbomb(int x, int y)
+bool AIController::setbomb(int x, int y)
 {
     assert(curBombnum <= MostBombnum);
     if (this->curBombnum >= this->MostBombnum)
-        return;
+        return false;
+    for (int i = 0; i < bomblist.size(); i++)
+    {
+        if (bomblist[i].loc == QPointF(x, y))
+            return false;
+    }
     this->curBombnum++;
     auto bomb = new GameObject();
     auto classification = new Bomb();
@@ -699,6 +794,224 @@ void AIController::setbomb(int x, int y)
         classification->setPushable();
     bomb->addComponent(classification);
     attachGameObject(bomb);
+    return true;
+}
+
+bool AIController::closeattack(int x, int y)
+{
+    QPointF loc[4];
+    int i, j, k;
+    for (i = 1; i <= 3; i++)
+        loc[i] = QPointF(-1, -1);
+    loc[0] = QPointF(x, y);
+    QPointF pos;
+    if (player1 != nullptr && !player1->getdeath())
+    {
+        pos = player1->getpos();
+        loc[1] = CalPlayerLoc(pos);
+    }
+    if (player2 != nullptr && !player2->getdeath())
+    {
+        pos = player2->getpos();
+        loc[2] = CalPlayerLoc(pos);
+    }
+    if (player3 != nullptr && !player3->getdeath())
+    {
+        pos = player3->getpos();
+        loc[3] = CalPlayerLoc(pos);
+    }
+    bool flag;
+    for (i = 1; i <= 3; i++)
+    {
+        flag = true;
+        if (loc[i] == QPointF(-1, -1))
+            continue;
+        if (loc[i].x() == x && abs(loc[i].y() - y) <= this->BombRange)
+        {
+            for (j = fmin(loc[i].y(), y); j <= fmax(loc[i].y(), y); j++)
+            {
+                if (pic[x][j] == 1 || pic[x][j] == 2)
+                {
+                    flag = false;
+                    break;
+                }
+                for (k = 0; k < bomblist.size(); k++)
+                {
+                    if (bomblist[k].loc == QPointF(x, j))
+                    {
+                        flag = false;
+                        break;
+                    }
+                }
+                if (!flag)
+                    break;
+            }
+            if (flag)
+                return true;
+        }
+        else if (loc[i].y() == y && abs(loc[i].x() - x) <= this->BombRange)
+        {
+            for (j = fmin(loc[i].x(), x); j <= fmax(loc[i].x(), x); j++)
+            {
+                if (pic[j][y] == 1 || pic[j][y] == 2)
+                {
+                    flag = false;
+                    break;
+                }
+                for (k = 0; k < bomblist.size(); k++)
+                {
+                    if (bomblist[k].loc == QPointF(j, y))
+                    {
+                        flag = false;
+                        break;
+                    }
+                }
+                if (!flag)
+                    break;
+            }
+            if (flag)
+                return true;
+        }
+    }
+    return false;
+}
+
+int AIController::farattack(int x, int y)
+{
+    if (!this->pushbomb)
+        return 0;
+    QPointF loc[4];
+    int i, j, k;
+    for (i = 1; i <= 3; i++)
+        loc[i] = QPointF(-1, -1);
+    loc[0] = QPointF(x, y);
+    QPointF pos;
+    if (player1 != nullptr && !player1->getdeath())
+    {
+        pos = player1->getpos();
+        loc[1] = CalPlayerLoc(pos);
+    }
+    if (player2 != nullptr && !player2->getdeath())
+    {
+        pos = player2->getpos();
+        loc[2] = CalPlayerLoc(pos);
+    }
+    if (player3 != nullptr && !player3->getdeath())
+    {
+        pos = player3->getpos();
+        loc[3] = CalPlayerLoc(pos);
+    }
+    bool flag;
+    for (i = 1; i <= 3; i++)
+    {
+        flag = true;
+        if (loc[i] == QPointF(-1, -1))
+            continue;
+        if (loc[i].x() == x && abs(loc[i].y() - y) > this->BombRange)
+        {
+            for (j = fmin(loc[i].y(), y); j <= fmax(loc[i].y(), y); j++)
+            {
+                if (pic[x][j] == 1 || pic[x][j] == 2)
+                {
+                    flag = false;
+                    break;
+                }
+                for (k = 0; k < bomblist.size(); k++)
+                {
+                    if (bomblist[k].loc == QPointF(x, j) && j != y)
+                    {
+                        flag = false;
+                        break;
+                    }
+                }
+                if (!flag)
+                    break;
+            }
+            if (flag)
+            {
+                if (loc[i].y() < y)
+                    return 3;
+                else
+                    return 4;
+            }
+        }
+        else if (loc[i].y() == y && abs(loc[i].x() - x) > this->BombRange)
+        {
+            for (j = fmin(loc[i].x(), x); j <= fmax(loc[i].x(), x); j++)
+            {
+                if (pic[j][y] == 1 || pic[j][y] == 2)
+                {
+                    flag = false;
+                    break;
+                }
+                for (k = 0; k < bomblist.size(); k++)
+                {
+                    if (bomblist[k].loc == QPointF(j, y) && j != x)
+                    {
+                        flag = false;
+                        break;
+                    }
+                }
+                if (!flag)
+                    break;
+            }
+            if (flag)
+            {
+                if (loc[i].x() < x)
+                    return 1;
+                else
+                    return 2;
+            }
+        }
+    }
+    return 0;
+}
+
+bool AIController::PushBomb(int x, int y, bool attack)
+{
+    if (!this->pushbomb)
+        return false;
+    int i, j;
+    for (i = 0; i < bomblist.size(); i++)
+    {
+        if (bomblist[i].master == this->type && bomblist[i].pushable)
+        {
+            auto mybomb = bomblist[i];
+            if (mybomb.loc.x() == x - 1 && mybomb.loc.y() == y)
+            {
+                if (farattack(x - 1, y) == 1 || !attack)
+                {
+                    moveunit(1);
+                    return true;
+                }
+            }
+            else if (mybomb.loc.x() == x + 1 && mybomb.loc.y() == y)
+            {
+                if (farattack(x + 1, y) == 2 || !attack)
+                {
+                    moveunit(2);
+                    return true;
+                }
+            }
+            else if (mybomb.loc.x() == x && mybomb.loc.y() == y - 1)
+            {
+                if (farattack(x, y - 1) == 3 || !attack)
+                {
+                    moveunit(3);
+                    return true;
+                }
+            }
+            else if (mybomb.loc.x() == x && mybomb.loc.y() == y + 1)
+            {
+                if (farattack(x, y + 1) == 4 || !attack)
+                {
+                    moveunit(4);
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
 }
 
 void AIController::onAttach()
@@ -713,6 +1026,8 @@ void AIController::onAttach()
     assert(gamescene != nullptr);
     assert(player1 != nullptr && player2 != nullptr && player3 != nullptr);
     this->collider = imagetransform;
+//    changevelocity(210);
+//    changepushbomb();
 }
 
 void AIController::onUpdate(float deltatime)
@@ -720,335 +1035,73 @@ void AIController::onUpdate(float deltatime)
     checkcollide();
     if (!moveable(deltatime))
         return;
-    //问题：1、短距离放炸弹死亡  2、推炸弹时不位于整格
+    //问题：1、推炸弹时不位于整格
     int i, j;
     QPointF curpos = this->imagetransform->pos();
-    bool flag = false;
-    for (i = 0; i < 15; i++)
-    {
-        for (j = 0; j < 20; j++)
-        {
-            int x = j * 40 + 20;
-            int y = i * 40 + 15;
-            if (curpos.x() - x >= -20 && curpos.x() - x < 20
-               && curpos.y() - y >= -25 && curpos.y() - y < 15)
-            {
-                flag = true;
-                break;
-            }
-        }
-        if (flag)  break;
-    }
-    QPointF loc = QPointF(i, j);
+    QPointF loc = CalPlayerLoc(curpos);
     observe();
     bfs(loc.x(), loc.y(), 0);
-    //assert(!picktools(loc.x(), loc.y(), deltatime));
-    assert(safe(loc.x(), loc.y(), 0) != -1);
-    if (safe(loc.x(), loc.y(), 0) == 0)
+    bool res = PushBomb(loc.x(), loc.y(), 1);
+    if (safe(loc.x(), loc.y(), 0) == 0 && !res)
     {
         if (!escape(loc.x(), loc.y(), deltatime))
-            moveaway(loc.x(), loc.y(), deltatime);
+        {
+            if (!PushBomb(loc.x(), loc.y(), 0))
+                moveaway(loc.x(), loc.y(), deltatime);
+        }
     }
-    else if (!picktools(loc.x(), loc.y(), deltatime))
+    else if (!this->pushbomb || this->velocity == 160)
     {
-        //assert(bomblist.empty());
-        moveunit(0);
-        //assert(bombsoftwall(loc.x(), loc.y(), deltatime));
-        if (!bombsoftwall(loc.x(), loc.y(), deltatime))
+        if (closeattack(loc.x(), loc.y()))
+            setbomb(loc.x(), loc.y());
+        else if (!picktools(loc.x(), loc.y(), deltatime, 0))
+        {
             moveunit(0);
-        //setbomb(loc.x(), loc.y());
-        //moveunit(1);
-        //else
-            //moveunit(1);
+            if (!bombsoftwall(loc.x(), loc.y(), deltatime))
+                moveunit(0);
+        }
+    }
+    else
+    {
+        if (closeattack(loc.x(), loc.y()))
+            setbomb(loc.x(), loc.y());
+        else
+        {
+            //assert(res);
+            if (!res)
+            {
+                int direction = farattack(loc.x(), loc.y());
+                //assert(direction == 1);
+                if (direction == 1 && safe(loc.x() + 1, loc.y(), 1) == 1)
+                {
+                    if (setbomb(loc.x(), loc.y()))
+                        moveunit(2);
+                }
+                else if (direction == 2 && safe(loc.x() - 1, loc.y(), 1) == 1)
+                {
+                    if (setbomb(loc.x(), loc.y()))
+                        moveunit(1);
+                }
+                else if (direction == 3 && safe(loc.x(), loc.y() + 1, 1) == 1)
+                {
+                    if (setbomb(loc.x(), loc.y()))
+                        moveunit(4);
+                }
+                else if (direction == 4 && safe(loc.x(), loc.y() - 1, 1) == 1)
+                {
+                    if (setbomb(loc.x(), loc.y()))
+                        moveunit(3);
+                }
+                else
+                {
+                    if (!picktools(loc.x(), loc.y(), deltatime, 1))
+                    {
+                        moveunit(0);
+                        if (!bombsoftwall(loc.x(), loc.y(), deltatime))
+                            moveunit(0);
+                    }
+                }
+            }
+        }
     }
 }
-/*float vx = 0, vy = 0;
-    srand((unsigned)time(NULL));
-    if (moveable(deltatime))
-        decision = rand() % 16 + 1; //123上 456下 789左 101112右 131415不动 16放炸弹
-    switch (type)
-    {
-    case 1:
-        if (decision == 1 || decision == 2 || decision == 3)
-        {
-            vy -= velocity;
-            imagetransform->setImage(":/pictures/images/player/3-up.png");
-            for (auto item : this->collider->collidingItems())
-            {
-                while (item->parentItem() != nullptr)
-                    item = item->parentItem();
-                auto transform = dynamic_cast<Transform *>(item);
-                if (transform != nullptr && abs(transform->pos().x() - imagetransform->pos().x()) < qreal(30)
-                        && transform->pos().y() - imagetransform->pos().y() > qreal(-30)
-                        && transform->pos().y() - imagetransform->pos().y() < 0)
-                {
-                    auto object = transform->getParentGameObject();
-                    auto wall = object->getComponent<Wall>();
-                    auto bomb = object->getComponent<Bomb>();
-                    if (wall == nullptr && bomb == nullptr)  continue;
-                    if (bomb != nullptr && vy < 0 && pushbomb && bomb->getMaster() == this)
-                    {
-                        bomb->setVelocity(QPointF(0, -240));
-                    }
-                    if (vy < 0)  vy = 0;
-                }
-            }
-        }
-
-        else if (decision == 4 || decision == 5 || decision == 6)
-        {
-            vy += velocity;
-            imagetransform->setImage(":/pictures/images/player/3-down.png");
-            for (auto item : this->collider->collidingItems())
-            {
-                while (item->parentItem() != nullptr)
-                    item = item->parentItem();
-                auto transform = dynamic_cast<Transform *>(item);
-                if (transform != nullptr && abs(transform->pos().x() - imagetransform->pos().x()) < qreal(30)
-                        && transform->pos().y() - imagetransform->pos().y() < qreal(44)
-                        && transform->pos().y() - imagetransform->pos().y() > 15)
-                {
-                    auto object = transform->getParentGameObject();
-                    auto wall = object->getComponent<Wall>();
-                    auto bomb = object->getComponent<Bomb>();
-                    if (wall == nullptr && bomb == nullptr)  continue;
-                    if (bomb != nullptr && vy > 0 && pushbomb && bomb->getMaster() == this)
-                    {
-                        bomb->setVelocity(QPointF(0, 240));
-                    }
-                    if (vy > 0)  vy = 0;
-                }
-            }
-        }
-        else if (decision == 7 || decision == 8 || decision == 9)
-        {
-            vx -= velocity;
-            imagetransform->setImage(":/pictures/images/player/3-left.png");
-            for (auto item : this->collider->collidingItems())
-            {
-                while (item->parentItem() != nullptr)
-                    item = item->parentItem();
-                auto transform = dynamic_cast<Transform *>(item);
-                if (transform != nullptr && imagetransform->pos().x() - transform->pos().x() < qreal(40)
-                        && transform->pos().x() - imagetransform->pos().x() < qreal(-5)
-                        && transform->pos().y() - imagetransform->pos().y() < qreal(40)
-                        && transform->pos().y() - imagetransform->pos().y() > qreal(-20))
-                {
-                    auto object = transform->getParentGameObject();
-                    auto wall = object->getComponent<Wall>();
-                    auto bomb = object->getComponent<Bomb>();
-                    if (wall == nullptr && bomb == nullptr)  continue;
-                    if (bomb != nullptr && vx < 0 && pushbomb && bomb->getMaster() == this)
-                    {
-                        bomb->setVelocity(QPointF(-240, 0));
-                    }
-                    if (vx < 0)  vx = 0;
-                }
-            }
-        }
-        else if (decision == 10 || decision == 11 || decision == 12)
-        {
-            vx += velocity;
-            imagetransform->setImage(":/pictures/images/player/3-right.png");
-            for (auto item : this->collider->collidingItems())
-            {
-                while (item->parentItem() != nullptr)
-                    item = item->parentItem();
-                auto transform = dynamic_cast<Transform *>(item);
-                if (transform != nullptr && transform->pos().x() - imagetransform->pos().x() < qreal(40)
-                        && transform->pos().x() - imagetransform->pos().x() > qreal(5)
-                        && transform->pos().y() - imagetransform->pos().y() < qreal(40)
-                        && transform->pos().y() - imagetransform->pos().y() > qreal(-20))
-                {
-                    auto object = transform->getParentGameObject();
-                    auto wall = object->getComponent<Wall>();
-                    auto bomb = object->getComponent<Bomb>();
-                    if (wall == nullptr && bomb == nullptr)  continue;
-                    if (bomb != nullptr && vx > 0 && pushbomb && bomb->getMaster() == this)
-                    {
-                        bomb->setVelocity(QPointF(240, 0));
-                    }
-                    if (vx > 0)  vx = 0;
-                }
-            }
-        }
-        else if (decision == 16)
-        {
-            if (curBombnum >= MostBombnum)
-                return;
-            curBombnum++;
-            auto bomb = new GameObject();
-            auto classification = new Bomb();
-            QPointF pos;
-            for (int i = 0; i < 15; i++)
-            {
-                for (int j = 0; j < 20; j++)
-                {
-                    if (this->imagetransform->pos().x() - (j * 40 + 20) >= -20 &&
-                            this->imagetransform->pos().x() - (j * 40 + 20) < 20 &&
-                            this->imagetransform->pos().y() - (i * 40 + 20) >= -20 &&
-                            this->imagetransform->pos().y() - (i * 40 + 20) < 20)
-                    {
-                        pos = QPointF(40 * j + 20, 40 * i + 20);
-                        break;
-                    }
-                }
-            }
-            ImageTransformBuilder()
-                    .setPos(pos)
-                    .setImage(":/pictures/images/map/bomb.png")
-                    .setAlignment(Qt::AlignCenter)
-                    .addToGameObject(bomb);
-            classification->setMaster(this);
-            classification->setRange(this->BombRange);
-            if (pushbomb)
-                classification->setPushable();
-            bomb->addComponent(classification);
-            attachGameObject(bomb);
-        }
-        physics->setVelocity(vx, vy);
-        break;
-
-    case 2:
-        decision = rand() % 16 + 1; //123上 456下 789左 101112右 131415不动 16放炸弹
-        if (decision == 1 || decision == 2 || decision == 3)
-        {
-            vy -= velocity;
-            imagetransform->setImage(":/pictures/images/player/4-up.png");
-            for (auto item : this->collider->collidingItems())
-            {
-                while (item->parentItem() != nullptr)
-                    item = item->parentItem();
-                auto transform = dynamic_cast<Transform *>(item);
-                if (transform != nullptr && abs(transform->pos().x() - imagetransform->pos().x()) < qreal(30)
-                        && transform->pos().y() - imagetransform->pos().y() > qreal(-30)
-                        && transform->pos().y() - imagetransform->pos().y() < 0)
-                {
-                    auto object = transform->getParentGameObject();
-                    auto wall = object->getComponent<Wall>();
-                    auto bomb = object->getComponent<Bomb>();
-                    if (wall == nullptr && bomb == nullptr)  continue;
-                    if (bomb != nullptr && vy < 0 && pushbomb && bomb->getMaster() == this)
-                    {
-                        bomb->setVelocity(QPointF(0, -240));
-                    }
-                    if (vy < 0)  vy = 0;
-                }
-            }
-        }
-
-        else if (decision == 4 || decision == 5 || decision == 6)
-        {
-            vy += velocity;
-            imagetransform->setImage(":/pictures/images/player/4-down.png");
-            for (auto item : this->collider->collidingItems())
-            {
-                while (item->parentItem() != nullptr)
-                    item = item->parentItem();
-                auto transform = dynamic_cast<Transform *>(item);
-                if (transform != nullptr && abs(transform->pos().x() - imagetransform->pos().x()) < qreal(30)
-                        && transform->pos().y() - imagetransform->pos().y() < qreal(44)
-                        && transform->pos().y() - imagetransform->pos().y() > 15)
-                {
-                    auto object = transform->getParentGameObject();
-                    auto wall = object->getComponent<Wall>();
-                    auto bomb = object->getComponent<Bomb>();
-                    if (wall == nullptr && bomb == nullptr)  continue;
-                    if (bomb != nullptr && vy > 0 && pushbomb && bomb->getMaster() == this)
-                    {
-                        bomb->setVelocity(QPointF(0, 240));
-                    }
-                    if (vy > 0)  vy = 0;
-                }
-            }
-        }
-        else if (decision == 7 || decision == 8 || decision == 9)
-        {
-            vx -= velocity;
-            imagetransform->setImage(":/pictures/images/player/4-left.png");
-            for (auto item : this->collider->collidingItems())
-            {
-                while (item->parentItem() != nullptr)
-                    item = item->parentItem();
-                auto transform = dynamic_cast<Transform *>(item);
-                if (transform != nullptr && imagetransform->pos().x() - transform->pos().x() < qreal(40)
-                        && transform->pos().x() - imagetransform->pos().x() < qreal(-5)
-                        && transform->pos().y() - imagetransform->pos().y() < qreal(40)
-                        && transform->pos().y() - imagetransform->pos().y() > qreal(-20))
-                {
-                    auto object = transform->getParentGameObject();
-                    auto wall = object->getComponent<Wall>();
-                    auto bomb = object->getComponent<Bomb>();
-                    if (wall == nullptr && bomb == nullptr)  continue;
-                    if (bomb != nullptr && vx < 0 && pushbomb && bomb->getMaster() == this)
-                    {
-                        bomb->setVelocity(QPointF(-240, 0));
-                    }
-                    if (vx < 0)  vx = 0;
-                }
-            }
-        }
-        else if (decision == 10 || decision == 11 || decision == 12)
-        {
-            vx += velocity;
-            imagetransform->setImage(":/pictures/images/player/4-right.png");
-            for (auto item : this->collider->collidingItems())
-            {
-                while (item->parentItem() != nullptr)
-                    item = item->parentItem();
-                auto transform = dynamic_cast<Transform *>(item);
-                if (transform != nullptr && transform->pos().x() - imagetransform->pos().x() < qreal(40)
-                        && transform->pos().x() - imagetransform->pos().x() > qreal(5)
-                        && transform->pos().y() - imagetransform->pos().y() < qreal(40)
-                        && transform->pos().y() - imagetransform->pos().y() > qreal(-20))
-                {
-                    auto object = transform->getParentGameObject();
-                    auto wall = object->getComponent<Wall>();
-                    auto bomb = object->getComponent<Bomb>();
-                    if (wall == nullptr && bomb == nullptr)  continue;
-                    if (bomb != nullptr && vx > 0 && pushbomb && bomb->getMaster() == this)
-                    {
-                        bomb->setVelocity(QPointF(240, 0));
-                    }
-                    if (vx > 0)  vx = 0;
-                }
-            }
-        }
-        else if (decision == 16)
-        {
-            if (curBombnum >= MostBombnum)
-                return;
-            curBombnum++;
-            auto bomb = new GameObject();
-            auto classification = new Bomb();
-            QPointF pos;
-            for (int i = 0; i < 15; i++)
-            {
-                for (int j = 0; j < 20; j++)
-                {
-                    if (this->imagetransform->pos().x() - (j * 40 + 20) >= -20 &&
-                            this->imagetransform->pos().x() - (j * 40 + 20) < 20 &&
-                            this->imagetransform->pos().y() - (i * 40 + 20) >= -20 &&
-                            this->imagetransform->pos().y() - (i * 40 + 20) < 20)
-                    {
-                        pos = QPointF(40 * j + 20, 40 * i + 20);
-                        break;
-                    }
-                }
-            }
-            ImageTransformBuilder()
-                    .setPos(pos)
-                    .setImage(":/pictures/images/map/bomb.png")
-                    .setAlignment(Qt::AlignCenter)
-                    .addToGameObject(bomb);
-            classification->setMaster(this);
-            classification->setRange(this->BombRange);
-            if (pushbomb)
-                classification->setPushable();
-            bomb->addComponent(classification);
-            attachGameObject(bomb);
-        }
-        physics->setVelocity(vx, vy);
-        break;
-    }*/
-

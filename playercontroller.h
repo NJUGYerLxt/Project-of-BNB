@@ -14,6 +14,7 @@ class PlayerController: public Component
 public:
     PlayerController(int type);
     QPointF getpos();
+    int gettype();
     void ConnectGameScene(GameScene *gamescene);
     void ConnectGamemap(Gamemap *gamemap);
     void ModifyCurBombNum();

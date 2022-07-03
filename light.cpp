@@ -3,6 +3,8 @@
 
 Light::Light(Bomb *bomb) {this->parentBomb = bomb;}
 
+QPointF Light::getpos() {return this->imagetransform->pos();}
+
 void Light::setCurRange(int range) {this->currange = range;}
 
 void Light::setDirection(int direction)
@@ -47,7 +49,7 @@ void Light::onFirstUpdate()
                 hitable->beHit();
             else if (abs(trans->pos().x() - imagetransform->pos().x()) < qreal(30)
                      && trans->pos().y() - imagetransform->pos().y() < qreal(25)
-                     && trans->pos().y() - imagetransform->pos().y() > qreal(-10))
+                     && trans->pos().y() - imagetransform->pos().y() > qreal(-15))
                      //&& !gameObject->getComponent<PlayerController>()->getdeath())
             {
                 hitable->beHit();
