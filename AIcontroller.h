@@ -27,9 +27,6 @@ protected:
     Gamemap *gamemap = nullptr;
     Health *health;
 
-//    void changevelocity(int v);
-//    void changepushbomb();
-
     void checkcollide();
     QPointF CalPlayerLoc(QPointF pos);
     void observe();
@@ -38,7 +35,7 @@ protected:
     const float moveunittime = 0.5;
     const float safecountdown = 0.5;
     float curmovetime = moveunittime;
-    int safe(int x, int y, int step); //0潜在不安全  1安全  -1不可走 2必死
+    int safe(int x, int y, int step); //0潜在危险  1安全  -1不可走  2必死
     int pic[15][20]; //0地砖 1软墙 2硬墙 3玩家 4炸弹 5道具
 
     PlayerController *player1 = nullptr, *player2 = nullptr, *player3 = nullptr;

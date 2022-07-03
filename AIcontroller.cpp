@@ -5,9 +5,6 @@
 
 AIController::AIController(int type) : PlayerController(type) {this->type = type;}
 
-//void AIController::changevelocity(int velocity) {this->velocity = velocity;}
-//void AIController::changepushbomb() {this->pushbomb = true;}
-
 void AIController::ConnectPlayer(PlayerController *player1, PlayerController *player2,
                                  PlayerController *player3)
 {
@@ -640,13 +637,12 @@ bool AIController::escape(int x, int y, float deltatime)
             }
         }
     }
-    //assert(destin != QPointF(-1, -1));
     if (destin == QPointF(-1, -1))
         return false;
     return move(x, y, destin.x(), destin.y(), deltatime);
 }
 
-void AIController::moveaway(int x, int y, float deltatime)  //可考虑更改bfs（冒险与否）
+void AIController::moveaway(int x, int y, float deltatime)
 {
     int i, j;
     int mindelta = 20 + 5;
@@ -738,7 +734,6 @@ bool AIController::bombsoftwall(int x, int y, float deltatime)
         {
             if (pic[i][j] == 1)
             {
-                //assert(steps[i][j] == -1);
                 for (k = 1; k <= 4; k++)
                 {
                     int h = i + yy[k];
@@ -747,7 +742,6 @@ bool AIController::bombsoftwall(int x, int y, float deltatime)
                     if (h >= 0 && h < 15 && l >= 0 && l < 20 &&
                             steps[h][l] != -1 && steps[h][l] < minstep)
                     {
-                        //moveunit(3);
                         minstep = steps[h][l];
                         destin = QPointF(h, l);
                         assert(minstep > 0);
@@ -756,10 +750,8 @@ bool AIController::bombsoftwall(int x, int y, float deltatime)
             }
         }
     }
-    //assert(destin != QPointF(-1, -1));
     if (destin == QPointF(-1, -1))
         return false;
-    //assert(move(x, y, destin.x(), destin.y(), deltatime));
     if (move(x, y, destin.x(), destin.y(), deltatime))
     {
         if (x == destin.x() && y == destin.y())
@@ -1026,8 +1018,6 @@ void AIController::onAttach()
     assert(gamescene != nullptr);
     assert(player1 != nullptr && player2 != nullptr && player3 != nullptr);
     this->collider = imagetransform;
-//    changevelocity(210);
-//    changepushbomb();
 }
 
 void AIController::onUpdate(float deltatime)
@@ -1035,7 +1025,6 @@ void AIController::onUpdate(float deltatime)
     checkcollide();
     if (!moveable(deltatime))
         return;
-    //问题：1、推炸弹时不位于整格
     int i, j;
     QPointF curpos = this->imagetransform->pos();
     QPointF loc = CalPlayerLoc(curpos);
@@ -1066,12 +1055,10 @@ void AIController::onUpdate(float deltatime)
         if (closeattack(loc.x(), loc.y()))
             setbomb(loc.x(), loc.y());
         else
-        {
-            //assert(res);
+        {            
             if (!res)
             {
                 int direction = farattack(loc.x(), loc.y());
-                //assert(direction == 1);
                 if (direction == 1 && safe(loc.x() + 1, loc.y(), 1) == 1)
                 {
                     if (setbomb(loc.x(), loc.y()))
